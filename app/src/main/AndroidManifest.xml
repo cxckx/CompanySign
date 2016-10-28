@@ -50,7 +50,7 @@
         </activity>
         <activity
             android:name=".view.activity.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".view.activity.UserInfoActivity"
             android:label="@string/title_activity_user_info"

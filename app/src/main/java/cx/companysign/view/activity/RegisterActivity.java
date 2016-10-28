@@ -69,6 +69,7 @@ public class RegisterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_layout);
+        ActivityUtils.addActiviy(this);
         mFrameLayout = (FrameLayout) findViewById(R.id.header_container);
         format = new SimpleDateFormat("yyyy-MM-dd");
         final User user = getIntent().getParcelableExtra("user");
@@ -83,7 +84,7 @@ public class RegisterActivity extends BaseActivity {
         actionBar.addMenu(0, R.drawable.ic_check_white_24dp);
         actionBar.setOnMenuItemClick(new ActionBar.OnMenuItemClick() {
             @Override
-            public void onItemClick(int index) {
+            public void onItemClick(final int index) {
                 if (index == -1) {
                      onBackPressed();
                 }else if(index == 0){
@@ -118,7 +119,7 @@ public class RegisterActivity extends BaseActivity {
                                             Toast.makeText(RegisterActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                             startActivity(intent);
-                                            finish();
+                                            ActivityUtils.finishAll2();
                                         } else {
                                             Toast.makeText(RegisterActivity.this, "修改失败", Toast.LENGTH_SHORT).show();
                                         }
@@ -171,11 +172,12 @@ public class RegisterActivity extends BaseActivity {
                                                     if (o.toString().equals("")) return;
 
                                                     if (Boolean.parseBoolean(o.toString())) {
+
                                                         Toast.makeText(RegisterActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
                                                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                                         startActivity(intent);
-                                                        finish();
-                                                        ActivityUtils.finishAll();
+                                                        ActivityUtils.finishAll2();
+
                                                         //ListenerSingleUtils.getInstance().listener(getIntent().getStringExtra("pwd"), phoneEdt.getText().toString());
                                                     } else {
                                                         Toast.makeText(RegisterActivity.this, "修改失败", Toast.LENGTH_SHORT).show();

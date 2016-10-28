@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -89,12 +90,10 @@ public class UserInfoActivity extends AppCompatActivity {
        /* if(!bitmap.isRecycled()){
             bitmap.recycle();
         }*/
-        Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
-
+        Palette.from(bitmap)
+                .generate(new Palette.PaletteAsyncListener() {
             @Override
-
             public void onGenerated(Palette palette) {
-
                 Palette.Swatch s1 = palette.getVibrantSwatch();
 
                 Palette.Swatch s2 = palette.getDarkVibrantSwatch();
@@ -108,42 +107,44 @@ public class UserInfoActivity extends AppCompatActivity {
                 Palette.Swatch s6 = palette.getLightMutedSwatch();
 
                 if (s1 != null) {
-
-                    coordinatorLayout.setExpandedTitleColor(s6.getRgb());
+                    int redValue = Color.red(s1.getRgb());
+                    int blueValue = Color.blue(s1.getRgb());
+                    int greenValue = Color.green(s1.getRgb());
+                    int color = Color.rgb(Math.abs(redValue - 255), Math.abs(greenValue - 255), Math.abs(blueValue - 255));
+                    coordinatorLayout.setExpandedTitleColor(color);
+                    return;
                 }
 
                 if (s2 != null) {
 
-                    coordinatorLayout.setExpandedTitleColor(s6.getRgb());
+                    coordinatorLayout.setExpandedTitleColor(s2.getTitleTextColor());
 
                 }
 
                 if (s3 != null) {
 
-                    coordinatorLayout.setExpandedTitleColor(s6.getRgb());
+                    coordinatorLayout.setExpandedTitleColor(s3.getTitleTextColor());
 
                 }
 
                 if (s4 != null) {
 
-                    coordinatorLayout.setExpandedTitleColor(s6.getRgb());
+                    coordinatorLayout.setExpandedTitleColor(s4.getTitleTextColor());
 
                 }
 
                 if (s5 != null) {
 
-                    coordinatorLayout.setExpandedTitleColor(s6.getRgb());
+                    coordinatorLayout.setExpandedTitleColor(s5.getTitleTextColor());
 
                 }
 
                 if (s6 != null) {
 
-                    coordinatorLayout.setExpandedTitleColor(s6.getRgb());
+                    coordinatorLayout.setExpandedTitleColor(s6.getTitleTextColor());
 
                 }
-
             }
-
         });
         //bitmap = BitmapUtils.blurBitmap(this,bitmap);
         imageView.setImageBitmap(bitmap);

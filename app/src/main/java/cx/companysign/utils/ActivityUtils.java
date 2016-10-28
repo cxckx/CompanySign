@@ -32,4 +32,14 @@ public class ActivityUtils {
         mActivities.clear();
     }
 
+    public static void finishAll2() {
+        for (Activity activity : mActivities) {
+            if (activity != null) {
+                activity.finish();
+            }
+
+        }
+
+        mActivities.clear();
+    }
 }

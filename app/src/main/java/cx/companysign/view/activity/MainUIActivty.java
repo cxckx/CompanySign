@@ -303,7 +303,7 @@ public class MainUIActivty extends BaseActivity {
             operator.cancleAllRequest();
         }
         unbindService(mServiceConnection);
-
+        ActivityUtils.removeActivity(this);
         super.onDestroy();
         Sender.getInstance().unRegister(mineFragment);
         Sender.getInstance().unRegister(fragment);

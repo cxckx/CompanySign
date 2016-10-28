@@ -58,7 +58,6 @@ public class MineFragment extends Fragment implements Receiver {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.mine_f_layout,container,false);
         cell = (DefaultHeadPortraitView) view.findViewById(R.id.header_cell);
         branch = (TextView) view.findViewById(R.id.branch);

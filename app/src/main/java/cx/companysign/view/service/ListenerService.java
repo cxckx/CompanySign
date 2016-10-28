@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.cxcxk.android_my_library.utils.INetWork;
@@ -92,7 +91,7 @@ public class ListenerService extends Service implements AbsListener{
                 }
 
                 String pwd = DecodeUtils.decrypt(o.toString(),phone);
-                Log.i("TAGGG",pwd+"----"+password);
+
                 if(!pwd.equals(password)){
                     Toast.makeText(ListenerService.this,"您的账号密码已被修改,如若非本人操作请尽快修改密码",Toast.LENGTH_LONG).show();
                     ActivityUtils.finishAll();

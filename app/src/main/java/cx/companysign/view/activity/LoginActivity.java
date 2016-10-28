@@ -38,6 +38,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         ActivityUtils.addActiviy(this);
         ActionBar actionBar = (ActionBar) findViewById(R.id.main_actionbar);
         actionBar.setBackGroundColor(getResources().getColor(com.example.cxcxk.android_my_library.R.color.colorPrimary));
