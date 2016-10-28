@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true">
+    <com.example.cxcxk.android_my_library.view.actionbar.ActionBar
+        android:id="@+id/action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.example.cxcxk.android_my_library.view.actionbar.ActionBar>
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <ScrollView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="@dimen/fab_margin">
+              <FrameLayout
+                  android:id="@+id/header_container"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center"></FrameLayout>
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+                  <EditText
+                      android:id="@+id/name"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:inputType="text" />
+              </LinearLayout>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="12sp"
+                  android:text="姓名"
+                  android:textColor="@color/colorPrimary"/>
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_marginTop="@dimen/fab_margin">
+                  <EditText
+                      android:id="@+id/phone"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:inputType="phone"
+                      android:lines="1"
+                      android:maxLength="11" />
+              </LinearLayout>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="12sp"
+                  android:text="手机号"
+                  android:textColor="@color/colorPrimary"/>
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="性别"
+                  android:textColor="@color/colorPrimary"
+                  android:layout_marginTop="@dimen/fab_margin"/>
+              <com.example.cxcxk.android_my_library.view.componts.SexSelectLayout
+                  android:id="@+id/sex_layout"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"></com.example.cxcxk.android_my_library.view.componts.SexSelectLayout>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="出生日期"
+                  android:textColor="@color/colorPrimary"
+                  android:layout_marginTop="@dimen/fab_margin"/>
+              <com.example.cxcxk.android_my_library.view.componts.DateSelectView
+                  android:id="@+id/date_select"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="@dimen/fab_margin"></com.example.cxcxk.android_my_library.view.componts.DateSelectView>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="14sp"
+                  android:layout_marginTop="@dimen/fab_margin"
+                  android:layout_gravity="center"
+                  android:text="请填写真实信息"/>
+          </LinearLayout>
+      </ScrollView>
+
+
+  </RelativeLayout>
+
+</LinearLayout>

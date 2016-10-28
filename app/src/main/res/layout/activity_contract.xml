@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="cx.companysign.view.activity.ContractActivity">
+    <com.example.cxcxk.android_my_library.view.actionbar.ActionBar
+        android:id="@+id/action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.example.cxcxk.android_my_library.view.actionbar.ActionBar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/contract_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></ListView>
+        <com.example.cxcxk.android_my_library.view.componts.ProblemLayout
+            android:id="@+id/problem_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"></com.example.cxcxk.android_my_library.view.componts.ProblemLayout>
+        <cx.companysign.view.componts.SortLineLayout
+            android:id="@+id/sort_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_alignParentRight="true"></cx.companysign.view.componts.SortLineLayout>
+    </RelativeLayout>
+</LinearLayout>
