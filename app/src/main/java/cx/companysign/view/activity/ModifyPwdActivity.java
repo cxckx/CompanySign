@@ -19,8 +19,9 @@ import cx.companysign.utils.WebServiceDataNetOperator;
 /**
  * Created by cxcxk on 2016/10/16.
  */
-public class  ModifyPwdActivity extends BaseActivity{
+public class ModifyPwdActivity extends BaseActivity {
     NetDataOperater operater;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,38 +37,38 @@ public class  ModifyPwdActivity extends BaseActivity{
         actionBar.setOnMenuItemClick(new ActionBar.OnMenuItemClick() {
             @Override
             public void onItemClick(int i) {
-                if(i == -1){
+                if (i == -1) {
                     onBackPressed();
-                }else if(i == 0){
-                    if(text.getText().length() == 0) {
+                } else if (i == 0) {
+                    if (text.getText().length() == 0) {
                         text.setError("请输入密码");
                         return;
-                    }else if(text.getText().length() <6 || text.getText().length() > 16){
+                    } else if (text.getText().length() < 6 || text.getText().length() > 16) {
                         text.setError("请输入6-16位的密码");
                         return;
                     }
                     NetDataOperater.Attribute attribute = ConnectHelper.createAttribute();
                     attribute.setMethodName(ConnectHelper.METHOD.UPDATEPWD);
-                    Map<String,String> map = new HashMap<String, String>();
-                    map.put("arg0",getIntent().getStringExtra("phone"));
-                    map.put("arg1",text.getText().toString());
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("arg0", getIntent().getStringExtra("phone"));
+                    map.put("arg1", text.getText().toString());
                     attribute.setParams(map);
                     operater.request(attribute, "1");
                     attribute.setNetWork(new INetWork() {
                         @Override
                         public void OnCompleted(Object o) {
-                            if(o.toString() == "") return ;
-                            if(Boolean.parseBoolean(o.toString())){
-                                Toast.makeText(ModifyPwdActivity.this,"更新成功",Toast.LENGTH_SHORT).show();
+                            if (o.toString() == "") return;
+                            if (Boolean.parseBoolean(o.toString())) {
+                                Toast.makeText(ModifyPwdActivity.this, "更新成功", Toast.LENGTH_SHORT).show();
                                 finish();
-                            }else {
-                                Toast.makeText(ModifyPwdActivity.this,"更新失败",Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(ModifyPwdActivity.this, "更新失败", Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
                         public void OnError(String s) {
-                            Toast.makeText(ModifyPwdActivity.this,"更新失败",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ModifyPwdActivity.this, "更新失败", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -84,7 +85,7 @@ public class  ModifyPwdActivity extends BaseActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(!operater.isRunFinish()){
+        if (!operater.isRunFinish()) {
             operater.cancleAllRequest();
         }
     }

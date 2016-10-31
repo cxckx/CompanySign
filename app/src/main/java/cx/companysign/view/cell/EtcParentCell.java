@@ -15,8 +15,8 @@ import com.example.cxcxk.android_my_library.utils.AndroidUtils;
  */
 public class EtcParentCell extends RelativeLayout {
 
-    boolean right,top,end;
-    int margin,numColoums = 3;// numColoums 与 GridView 每一行item对应
+    boolean right, top, end;
+    int margin, numColoums = 3;// numColoums 与 GridView 每一行item对应
 
     static Paint paint;
     int colorLine;
@@ -36,8 +36,8 @@ public class EtcParentCell extends RelativeLayout {
         init();
     }
 
-    private void  init(){
-        if(paint == null){
+    private void init() {
+        if (paint == null) {
             paint = new Paint();
             paint.setColor(Color.BLACK);
             paint.setStyle(Paint.Style.STROKE);
@@ -45,7 +45,7 @@ public class EtcParentCell extends RelativeLayout {
         setBackgroundColor(Color.WHITE);
     }
 
-    public void setBorderColor(int color){
+    public void setBorderColor(int color) {
         this.colorLine = color;
         paint.setColor(colorLine);
         setWillNotDraw(false);
@@ -53,26 +53,28 @@ public class EtcParentCell extends RelativeLayout {
 
     /**
      * 处理每个位置的边框重叠
+     *
      * @param position
      */
-    public void setPosition(int position){
-        this.right = (position%numColoums == numColoums-1);
-        this.top = position/numColoums == 0;
+    public void setPosition(int position) {
+        this.right = (position % numColoums == numColoums - 1);
+        this.top = position / numColoums == 0;
         setWillNotDraw(false);
     }
-    public void setNumColoums(int numColoums){
+
+    public void setNumColoums(int numColoums) {
         this.numColoums = numColoums;
         setWillNotDraw(false);
     }
 
     /**
      * 设置外边距 为适配宽度
+     *
      * @param margin
      */
-    public void setMargin(int margin){
+    public void setMargin(int margin) {
         this.margin = margin;
     }
-
 
 
     @Override
@@ -84,12 +86,12 @@ public class EtcParentCell extends RelativeLayout {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawLine(0.1f,0,0.1f,canvas.getHeight()-0.1f,paint);//左
-        if(right||end){
-            canvas.drawLine(canvas.getWidth()-0.1f,0,canvas.getWidth()-0.1f,canvas.getHeight(),paint);//右
+        canvas.drawLine(0.1f, 0, 0.1f, canvas.getHeight() - 0.1f, paint);//左
+        if (right || end) {
+            canvas.drawLine(canvas.getWidth() - 0.1f, 0, canvas.getWidth() - 0.1f, canvas.getHeight(), paint);//右
         }
-        if(top){
-            canvas.drawLine(0,0,canvas.getWidth(),0,paint);//上
+        if (top) {
+            canvas.drawLine(0, 0, canvas.getWidth(), 0, paint);//上
         }
         canvas.drawLine(0, canvas.getHeight() - 0.1f, canvas.getWidth(), canvas.getHeight() - 0.1f, paint);//下
     }

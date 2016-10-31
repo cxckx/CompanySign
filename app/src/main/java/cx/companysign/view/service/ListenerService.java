@@ -25,7 +25,7 @@ import cx.companysign.utils.WebServiceDataNetOperator;
 /**
  * Created by cxcxk on 2016/10/26.
  */
-public class ListenerService extends Service implements AbsListener{
+public class ListenerService extends Service implements AbsListener {
 
     MyBinder mMyBinder;
     NetDataOperater operater = new WebServiceDataNetOperator();
@@ -33,7 +33,7 @@ public class ListenerService extends Service implements AbsListener{
         @Override
         public boolean handleMessage(Message msg) {
             NetDataOperater.Attribute attribute = (NetDataOperater.Attribute) msg.obj;
-            operater.request(attribute,"1");
+            operater.request(attribute, "1");
             return true;
         }
     });
@@ -54,26 +54,26 @@ public class ListenerService extends Service implements AbsListener{
 
     @Override
     public void listenerUpdate(String password, String phone) {
-        if(!operater.isRunFinish()){
+        if (!operater.isRunFinish()) {
             operater.cancleAllRequest();
         }
 
         listener(password, phone);
     }
 
-    public class MyBinder extends Binder{
+    public class MyBinder extends Binder {
 
-        public ListenerService getService(){
+        public ListenerService getService() {
             return ListenerService.this;
         }
     }
 
-    public void listener(final String password,final String phone){
+    public void listener(final String password, final String phone) {
 
         final NetDataOperater.Attribute attribute = ConnectHelper.createAttribute();
         attribute.setMethodName(ConnectHelper.METHOD.GETPWD);
-        Map<String,String> map = new HashMap<>();
-        map.put("arg0",phone);
+        Map<String, String> map = new HashMap<>();
+        map.put("arg0", phone);
         attribute.setParams(map);
 
         operater.request(attribute, "1");
@@ -82,29 +82,29 @@ public class ListenerService extends Service implements AbsListener{
         attribute.setNetWork(new INetWork() {
             @Override
             public void OnCompleted(Object o) {
-                Message message =  mHandler.obtainMessage();
+                Message message = mHandler.obtainMessage();
                 message.obj = attribute;
-                if(o.toString().equals("")){
+                if (o.toString().equals("")) {
 
-                    mHandler.sendMessageDelayed(message,1000);
-                    return ;
+                    mHandler.sendMessageDelayed(message, 1000);
+                    return;
                 }
 
-                String pwd = DecodeUtils.decrypt(o.toString(),phone);
+                String pwd = DecodeUtils.decrypt(o.toString(), phone);
 
-                if(!pwd.equals(password)){
-                    Toast.makeText(ListenerService.this,"您的账号密码已被修改,如若非本人操作请尽快修改密码",Toast.LENGTH_LONG).show();
+                if (!pwd.equals(password)) {
+                    Toast.makeText(ListenerService.this, "您的账号密码已被修改,如若非本人操作请尽快修改密码", Toast.LENGTH_LONG).show();
                     ActivityUtils.finishAll();
-                }else {
-                    mHandler.sendMessageDelayed(message,2000);
+                } else {
+                    mHandler.sendMessageDelayed(message, 2000);
                 }
             }
 
             @Override
             public void OnError(String s) {
-                Message message =  mHandler.obtainMessage();
+                Message message = mHandler.obtainMessage();
                 message.obj = attribute;
-                mHandler.sendMessageDelayed(message,2000);
+                mHandler.sendMessageDelayed(message, 2000);
             }
 
             @Override
@@ -116,7 +116,7 @@ public class ListenerService extends Service implements AbsListener{
 
     @Override
     public boolean onUnbind(Intent intent) {
-        if(!operater.isRunFinish()){
+        if (!operater.isRunFinish()) {
             operater.cancleAllRequest();
         }
         mHandler.removeCallbacksAndMessages(null);

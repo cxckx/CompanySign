@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/back">
-   <ImageView
-       android:id="@+id/image"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_centerInParent="true"
-       android:src="@drawable/logo"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/back"
+                android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/logo"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Copyright © 2016 XIAO版权所有"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_marginBottom="@dimen/fab_margin"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:text="Copyright © 2016 XIAO版权所有"
+        android:textColor="@color/colorPrimaryDark"/>
 </RelativeLayout>

@@ -48,17 +48,18 @@ public class MineFragment extends Fragment implements Receiver {
 
     DefaultHeadPortraitView cell;
 
-    TextView branch,partCompany;
+    TextView branch, partCompany;
     ListView mineListView;
     User user = new User();
     NetDataOperater operater;
-    NetDataOperater.Attribute attributeSign,attributeSignOut;
+    NetDataOperater.Attribute attributeSign, attributeSignOut;
     int isSign = -1;
     boolean isRequest = true;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.mine_f_layout,container,false);
+        View view = inflater.inflate(R.layout.mine_f_layout, container, false);
         cell = (DefaultHeadPortraitView) view.findViewById(R.id.header_cell);
         branch = (TextView) view.findViewById(R.id.branch);
         partCompany = (TextView) view.findViewById(R.id.part_company);
@@ -99,7 +100,7 @@ public class MineFragment extends Fragment implements Receiver {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                                 MineFragment.this.dialog.show();
-                                operater.request(attributeSign,"1");
+                                operater.request(attributeSign, "1");
                             }
                         }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                             @Override
@@ -142,7 +143,7 @@ public class MineFragment extends Fragment implements Receiver {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                                 MineFragment.this.dialog.show();
-                                operater.request(attributeSign,"1");
+                                operater.request(attributeSign, "1");
                             }
                         }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                             @Override
@@ -186,28 +187,27 @@ public class MineFragment extends Fragment implements Receiver {
                     startActivity(intent);
                 } else if (position == 0) {
 
-                    if(isSign == -1 || isSign == 0){
+                    if (isSign == -1 || isSign == 0) {
                         Intent intent = new Intent(getContext(), SignActivity.class);
-                        intent.putExtra("userid",user.getUserId());
-                        intent.putExtra("issign",isSign);
+                        intent.putExtra("userid", user.getUserId());
+                        intent.putExtra("issign", isSign);
                         startActivityForResult(intent, 0);
-                    }else if(isSign == 1){
-                        Toast.makeText(getContext(),"今天的签到流程已完成,请明天再来签到",Toast.LENGTH_SHORT).show();
+                    } else if (isSign == 1) {
+                        Toast.makeText(getContext(), "今天的签到流程已完成,请明天再来签到", Toast.LENGTH_SHORT).show();
                     }
 
 
-
-                }else if(position == 1){
-                     Intent intent = new Intent(getContext(), SignHistoryActivity.class);
-                    intent.putExtra("userid",user.getUserId());
+                } else if (position == 1) {
+                    Intent intent = new Intent(getContext(), SignHistoryActivity.class);
+                    intent.putExtra("userid", user.getUserId());
                     startActivity(intent);
-                }else if(position == 2){
+                } else if (position == 2) {
                     Intent intent = new Intent(getContext(), WeatherActivity.class);
                     startActivity(intent);
-                }else if(position == 3){
+                } else if (position == 3) {
                     final NetDataOperater.Attribute attribute = ConnectHelper.createAttribute();
                     attribute.setMethodName(ConnectHelper.METHOD.LOGINOUT);
-                    Map<String,String> map = new HashMap<String, String>();
+                    Map<String, String> map = new HashMap<String, String>();
                     map.put("arg0", user.getUserPhone());
                     attribute.setParams(map);
                     operater.request(attribute, "a");
@@ -239,7 +239,7 @@ public class MineFragment extends Fragment implements Receiver {
                         }
                     });
 
-                }else if(position == 6){
+                } else if (position == 6) {
                     AppDialog dialog = new AppDialog.Builder(getContext())
                             .setTitle("授权码")
                             .setMessage(new DeviceUuidFactory(getContext()).getDeviceUuid().toString())
@@ -250,10 +250,10 @@ public class MineFragment extends Fragment implements Receiver {
                                 }
                             }).create();
                     dialog.show();
-                }else if(position == 4){
+                } else if (position == 4) {
                     Intent intent = new Intent(getActivity(), RegisterActivity.class);
-                    intent.putExtra("user",user);
-                    intent.putExtra("pwd",pwd);
+                    intent.putExtra("user", user);
+                    intent.putExtra("pwd", pwd);
                     startActivity(intent);
                 }
             }
@@ -263,18 +263,20 @@ public class MineFragment extends Fragment implements Receiver {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(!operater.isRunFinish()){
+        if (!operater.isRunFinish()) {
             operater.cancleAllRequest();
         }
     }
+
     String pwd;
+
     @Override
-    public void translateUser(User user,String pwd) {
+    public void translateUser(User user, String pwd) {
         this.user = user;
         this.pwd = pwd;
-        if(user == null) return ;
-        if(isRequest && ConnectUtils.isConnect()){
-            Map<String,String> map = new HashMap<>();
+        if (user == null) return;
+        if (isRequest && ConnectUtils.isConnect()) {
+            Map<String, String> map = new HashMap<>();
             map.put("arg0", user.getUserId().toString());
             map.put("arg1", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
             attributeSign.setParams(map);
@@ -284,7 +286,7 @@ public class MineFragment extends Fragment implements Receiver {
         }
 
 
-        cell.setText(user.getUserName().substring(0,1));
+        cell.setText(user.getUserName().substring(0, 1));
         branch.setText(user.getUserBranch());
         partCompany.setText(user.getUserPartCompany());
 
@@ -295,13 +297,16 @@ public class MineFragment extends Fragment implements Receiver {
 
     }
 
-    String [] items = {"签到/签退","历史签到","天气预报","切换账号","个人信息","关于","授权码"};
-    int [] itemsRes = {R.drawable.sign_dpi_24dp,R.drawable.history_sign_24dp,R.drawable.weather,R.drawable.qiehuan,R.drawable.myinfo,R.drawable.about,R.drawable.shouquanma};
+    String[] items = {"签到/签退", "历史签到", "天气预报", "切换账号", "个人信息", "关于", "授权码"};
+    int[] itemsRes = {R.drawable.sign_dpi_24dp, R.drawable.history_sign_24dp, R.drawable.weather, R.drawable.qiehuan, R.drawable.myinfo, R.drawable.about, R.drawable.shouquanma};
+
     @Override
     public void refreshContract() {
 
     }
+
     LoadDialog dialog;
+
     @Override
     public void onResume() {
         super.onResume();
@@ -314,7 +319,7 @@ public class MineFragment extends Fragment implements Receiver {
         super.onActivityResult(requestCode, resultCode, data);
         /*dialog.show();
         operater.request(attributeSign, "1");*/
-        isSign =data.getIntExtra("isSign", -1);
+        isSign = data.getIntExtra("isSign", -1);
         //isRequest = data.getBooleanExtra("isRequest",false);
 
     }
@@ -326,7 +331,7 @@ public class MineFragment extends Fragment implements Receiver {
          */
     }
 
-    class MyAdapter extends BaseAdapter{
+    class MyAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -345,7 +350,7 @@ public class MineFragment extends Fragment implements Receiver {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView == null){
+            if (convertView == null) {
                 convertView = new ImageTextCell(getContext());
             }
             ImageTextCell cell = (ImageTextCell) convertView;

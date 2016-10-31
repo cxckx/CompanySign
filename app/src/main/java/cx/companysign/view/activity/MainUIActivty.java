@@ -59,6 +59,7 @@ public class MainUIActivty extends BaseActivity {
     ContractFragment fragment;
     PopupWindow popupWindow;
     ProgressDialog dialogP;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +83,7 @@ public class MainUIActivty extends BaseActivity {
             }
         });
 
-        dialogP= new ProgressDialog(this);
+        dialogP = new ProgressDialog(this);
         dialogP.setMessage("正在获取个人信息,请稍后...");
         dialogP.setCanceledOnTouchOutside(false);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -96,16 +97,15 @@ public class MainUIActivty extends BaseActivity {
             @Override
             public void onTabSelect(int i) {
                 if (i == 1) {
-                    Sender.getInstance().translateUser(user,getIntent().getStringExtra("pwd"));
+                    Sender.getInstance().translateUser(user, getIntent().getStringExtra("pwd"));
                 }
             }
         });
 
 
-
         pager = (ViewPager) findViewById(R.id.view_pager);
         tabLayout.bindViewPager(pager);
-        fragment= new ContractFragment();
+        fragment = new ContractFragment();
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(fragment);
         mineFragment = new MineFragment();
@@ -115,10 +115,10 @@ public class MainUIActivty extends BaseActivity {
         pager.setAdapter(new FragmentViewPagerAdapter(getSupportFragmentManager(), fragments));
 
         operator = new WebServiceDataNetOperator();
-        UserEntity entity  = DBInterface.instance().getUser( getIntent().getStringExtra("phone"));
-        if(entity == null){
+        UserEntity entity = DBInterface.instance().getUser(getIntent().getStringExtra("phone"));
+        if (entity == null) {
             request();
-        }else {
+        } else {
             actionBar.setTitle(entity.getUserName());
             user = User.UserEntityToUser(entity);
 
@@ -126,7 +126,7 @@ public class MainUIActivty extends BaseActivity {
 
 
         Intent intent = new Intent(this, ListenerService.class);
-        bindService(intent,mServiceConnection, Context.BIND_AUTO_CREATE);
+        bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
 
@@ -144,7 +144,7 @@ public class MainUIActivty extends BaseActivity {
         }
     };
 
-    private void initPopWindow(){
+    private void initPopWindow() {
         final View popupWindow_view = getLayoutInflater().inflate(R.layout.popwindow_layout, null, false);
         // 创建PopupWindow实例,200,LayoutParams.MATCH_PARENT分别是宽度和高度
         popupWindow = new PopupWindow(popupWindow_view, 250, ViewGroup.LayoutParams.WRAP_CONTENT, true);
@@ -190,10 +190,10 @@ public class MainUIActivty extends BaseActivity {
 
     }
 
-    private void request(){
+    private void request() {
         final NetDataOperater.Attribute attribute = ConnectHelper.createAttribute();
         attribute.setMethodName(ConnectHelper.METHOD.GETEMPLOYEE);
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("arg0", getIntent().getStringExtra("phone"));
         attribute.setParams(map);
         operator.request(attribute, "1");
@@ -251,24 +251,26 @@ public class MainUIActivty extends BaseActivity {
             }
         });
     }
+
     boolean isBacking = false;
+
     @Override
     public void onBackPressed() {
 
-        if (!dialogP.isShowing()){
-            if (isBacking) return ;
+        if (!dialogP.isShowing()) {
+            if (isBacking) return;
             isBacking = true;
             final NetDataOperater.Attribute attribute = ConnectHelper.createAttribute();
             attribute.setMethodName(ConnectHelper.METHOD.LOGINOUT);
-            Map<String,String> map = new HashMap<>();
+            Map<String, String> map = new HashMap<>();
             map.put("arg0", getIntent().getStringExtra("phone"));
             attribute.setParams(map);
             operator.request(attribute, "a");
             attribute.setNetWork(new INetWork() {
                 @Override
                 public void OnCompleted(Object o) {
-                    if(o.toString().equals("")) return ;
-                    if(Boolean.parseBoolean(o.toString()))
+                    if (o.toString().equals("")) return;
+                    if (Boolean.parseBoolean(o.toString()))
 
                         MainUIActivty.super.onBackPressed();
                 }

@@ -35,7 +35,7 @@ public class TextCell extends RelativeLayout {
         init(context);
     }
 
-    private void init(Context context){
+    private void init(Context context) {
         setBackgroundColor(Color.WHITE);
         view = new TextView(context);
         view.setTextColor(16);
@@ -46,7 +46,7 @@ public class TextCell extends RelativeLayout {
         params.leftMargin = AndroidUtils.dip2px(context, 32);
         addView(view, params);
 
-        if(paint == null){
+        if (paint == null) {
             paint = new Paint();
             paint.setDither(true);
             paint.setAntiAlias(true);
@@ -55,23 +55,23 @@ public class TextCell extends RelativeLayout {
         }
     }
 
-    public void setText(String text,boolean isNeedDivider){
+    public void setText(String text, boolean isNeedDivider) {
         view.setText(text);
         setWillNotDraw(!isNeedDivider);
     }
 
-    public String getText(){
-        return  view.getText().toString();
+    public String getText() {
+        return view.getText().toString();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
 
-        canvas.drawLine(AndroidUtils.dip2px(getContext(), 16),canvas.getHeight()-1,canvas.getWidth()-AndroidUtils.dip2px(getContext(), 16),canvas.getHeight()-1,paint);
+        canvas.drawLine(AndroidUtils.dip2px(getContext(), 16), canvas.getHeight() - 1, canvas.getWidth() - AndroidUtils.dip2px(getContext(), 16), canvas.getHeight() - 1, paint);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(AndroidUtils.dip2px(getContext(),40),MeasureSpec.EXACTLY));
+        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(AndroidUtils.dip2px(getContext(), 40), MeasureSpec.EXACTLY));
     }
 }

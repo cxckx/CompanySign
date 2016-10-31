@@ -11,7 +11,7 @@ import android.support.v8.renderscript.ScriptIntrinsicBlur;
  * Created by cxcxk on 2016/10/25.
  */
 public class BitmapUtils {
-    public static  Bitmap blurBitmap(Context context,Bitmap bitmap){
+    public static Bitmap blurBitmap(Context context, Bitmap bitmap) {
 
         //Let's create an empty bitmap with the same size of the bitmap we want to blur
         Bitmap outBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);

@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -38,16 +37,16 @@ public class HeaderItemCell extends View {
         init();
     }
 
-    private void init(){
+    private void init() {
         //setPadding(AndroidUtils.dip2px(getContext(),16),AndroidUtils.dip2px(getContext(),16),0,0);
-        if (rectPaint == null){
+        if (rectPaint == null) {
             rectPaint = new Paint();
             rectPaint.setColor(getResources().getColor(R.color.colorPrimary));
             rectPaint.setAntiAlias(true);
             rectPaint.setDither(true);
             rectPaint.setStyle(Paint.Style.FILL);
         }
-        if(textPaint == null){
+        if (textPaint == null) {
             textPaint = new Paint();
             textPaint.setColor(Color.WHITE);
             textPaint.setAntiAlias(true);
@@ -62,13 +61,14 @@ public class HeaderItemCell extends View {
         setWillNotDraw(false);
     }
 
-    public void setText(String text){
+    public void setText(String text) {
         this.text = text;
         invalidate();
     }
 
     int color;
-    public void setColor(int color){
+
+    public void setColor(int color) {
         this.color = color;
         invalidate();
     }
@@ -79,11 +79,11 @@ public class HeaderItemCell extends View {
         textPaint.setTextSize(canvas.getWidth() / 3);
         rectPaint.setColor(color);
         Rect rect = new Rect();
-        canvas.drawCircle(canvas.getWidth()/2, canvas.getWidth()/2, canvas.getWidth()/2-AndroidUtils.dip2px(getContext(),10), rectPaint);
+        canvas.drawCircle(canvas.getWidth() / 2, canvas.getWidth() / 2, canvas.getWidth() / 2 - AndroidUtils.dip2px(getContext(), 10), rectPaint);
 
-        float size = textPaint.measureText(text.substring(0,1));
+        float size = textPaint.measureText(text.substring(0, 1));
         float height = textPaint.getFontMetrics().ascent + textPaint.getFontMetrics().descent;
-        canvas.drawText(text.substring(0,1), (canvas.getWidth() - size) / 2, (canvas.getHeight() - height) / 2, textPaint);
+        canvas.drawText(text.substring(0, 1), (canvas.getWidth() - size) / 2, (canvas.getHeight() - height) / 2, textPaint);
 
     }
 
@@ -91,6 +91,7 @@ public class HeaderItemCell extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
     }
+
     private int measureWidth(int measureSpec) {
         int result = 0;
         int specMode = MeasureSpec.getMode(measureSpec);

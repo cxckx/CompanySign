@@ -2,8 +2,6 @@ package cx.companysign.view.cell;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -20,9 +18,8 @@ import com.squareup.picasso.Picasso;
  */
 public class WeatherCell extends EtcParentCell {
 
-    TextView week,day,night,temp,wind;
-    ImageView dayImage,nightImage;
-
+    TextView week, day, night, temp, wind;
+    ImageView dayImage, nightImage;
 
 
     public WeatherCell(Context context) {
@@ -40,7 +37,7 @@ public class WeatherCell extends EtcParentCell {
         init(context);
     }
 
-    private void init(Context context){
+    private void init(Context context) {
 
         LinearLayout layoutAll = new LinearLayout(context);
         layoutAll.setOrientation(LinearLayout.VERTICAL);
@@ -92,25 +89,28 @@ public class WeatherCell extends EtcParentCell {
         layoutAll.addView(wind, params);
         RelativeLayout.LayoutParams params2 = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params2.addRule(CENTER_IN_PARENT);
-        addView(layoutAll,params2);
+        addView(layoutAll, params2);
     }
 
 
-    public void setTime(String time){
+    public void setTime(String time) {
         this.week.setText(time);
     }
-    public void setDayAndNight(String day,String night){
+
+    public void setDayAndNight(String day, String night) {
         this.day.setText(day);
         this.night.setText(night);
     }
-    public void setTemp(String temp){
+
+    public void setTemp(String temp) {
         this.temp.setText(temp);
     }
-    public void setWind(String wind){
+
+    public void setWind(String wind) {
         this.wind.setText(wind);
     }
 
-    public void setDayAndNightImage(String dayImage,String nightImage){
+    public void setDayAndNightImage(String dayImage, String nightImage) {
         Picasso.with(getContext())
                 .load(dayImage)
                 .into(this.dayImage);

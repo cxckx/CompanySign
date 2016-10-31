@@ -56,15 +56,16 @@ import rx.schedulers.Schedulers;
 public class RegisterActivity extends BaseActivity {
 
     ActionBar actionBar;
-    EditText phoneEdt,nameEdit;
+    EditText phoneEdt, nameEdit;
 
     DateSelectView dateSelectView;
     SexSelectLayout sexSelectLayout;
     SimpleDateFormat format;
     String mDate;
     NetDataOperater<String> mDataOperater;
-   FrameLayout mFrameLayout;
-    Bitmap mBitmap ;
+    FrameLayout mFrameLayout;
+    Bitmap mBitmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,9 +87,9 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onItemClick(final int index) {
                 if (index == -1) {
-                     onBackPressed();
-                }else if(index == 0){
-                    InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    onBackPressed();
+                } else if (index == 0) {
+                    InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     im.hideSoftInputFromWindow(getCurrentFocus().getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     bitmapToString(new PhotoHandler() {
                         @Override
@@ -223,14 +224,13 @@ public class RegisterActivity extends BaseActivity {
                     });
 
 
-
                 }
             }
         });
         mDataOperater = new WebServiceDataNetOperator();
 
-        if(user.getUserIconHeader().equals("")){
-            DefaultHeadPortraitView cell = new  DefaultHeadPortraitView(this);
+        if (user.getUserIconHeader().equals("")) {
+            DefaultHeadPortraitView cell = new DefaultHeadPortraitView(this);
             cell.setColor(getResources().getColor(R.color.colorPrimaryDark));
             cell.setText(user.getUserName().substring(0, 1));
             mFrameLayout.addView(cell, LayoutHelper.createFrameLayout(AndroidUtils.dip2px(this, 100), AndroidUtils.dip2px(this, 100), Gravity.CENTER));
@@ -242,10 +242,10 @@ public class RegisterActivity extends BaseActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
-                                    if(which == 0){//拍照
+                                    if (which == 0) {//拍照
                                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//调用android自带的照相机
                                         startActivityForResult(intent, 1);
-                                    }else{//相册选取
+                                    } else {//相册选取
                                         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                                     /* 开启Pictures画面Type设定为image */
                                         intent.setType("image/*");
@@ -257,9 +257,9 @@ public class RegisterActivity extends BaseActivity {
                     dialog.show();
                 }
             });
-        }else {
+        } else {
             ImageViewPlus imageViewPlus = new ImageViewPlus(this);
-            byte []photoimg = Base64.decode(user.getUserIconHeader(),Base64.DEFAULT);
+            byte[] photoimg = Base64.decode(user.getUserIconHeader(), Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(photoimg, 0, photoimg.length);
             imageViewPlus.setImageBitmap(bitmap);
             mFrameLayout.addView(imageViewPlus, LayoutHelper.createFrameLayout(AndroidUtils.dip2px(this, 100), AndroidUtils.dip2px(this, 100), Gravity.CENTER));
@@ -292,7 +292,7 @@ public class RegisterActivity extends BaseActivity {
         nameEdit.setText(user.getUserName());
         mDate = format.format(new Date(user.getUserBirthday()));
         dateSelectView.setDate(mDate);
-        sexSelectLayout.setSelected(1-user.getUserSex());
+        sexSelectLayout.setSelected(1 - user.getUserSex());
         sexSelectLayout.setTexts("男", "女");
         sexSelectLayout.setClickable(false);
         /*dateSelectView.setOnClick(new IOnClick() {
@@ -321,14 +321,14 @@ public class RegisterActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(!mDataOperater.isRunFinish()){
+        if (!mDataOperater.isRunFinish()) {
             mDataOperater.cancleAllRequest();
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 1){
+        if (requestCode == 1) {
             if (data != null) {
                 //取得返回的Uri,基本上选择照片的时候返回的是以Uri形式，但是在拍照中有得机子呢Uri是空的，所以要特别注意
                 Uri mImageCaptureUri = data.getData();
@@ -341,7 +341,7 @@ public class RegisterActivity extends BaseActivity {
                         if (image != null) {
                             mFrameLayout.removeAllViews();
                             ImageLauncher launcher = new ImageLauncher(RegisterActivity.this);
-                            launcher.initParam(R.drawable.icon,true);
+                            launcher.initParam(R.drawable.icon, true);
                             launcher.load(new BitmapDrawable(getResources(), image));
                             mFrameLayout.addView(launcher, LayoutHelper.createFrameLayout(AndroidUtils.dip2px(this, 100), AndroidUtils.dip2px(this, 100), Gravity.CENTER));
                             mBitmap = image;
@@ -357,9 +357,9 @@ public class RegisterActivity extends BaseActivity {
                         if (image != null) {
                             mFrameLayout.removeAllViews();
                             ImageLauncher launcher = new ImageLauncher(RegisterActivity.this);
-                            launcher.initParam(R.drawable.icon,true);
-                            launcher.load(new BitmapDrawable(getResources(),image));
-                            mFrameLayout.addView(launcher, LayoutHelper.createFrameLayout(AndroidUtils.dip2px(this, 100), AndroidUtils.dip2px(this, 100),Gravity.CENTER));
+                            launcher.initParam(R.drawable.icon, true);
+                            launcher.load(new BitmapDrawable(getResources(), image));
+                            mFrameLayout.addView(launcher, LayoutHelper.createFrameLayout(AndroidUtils.dip2px(this, 100), AndroidUtils.dip2px(this, 100), Gravity.CENTER));
                             mBitmap = image;
                         }
                     }
@@ -369,69 +369,69 @@ public class RegisterActivity extends BaseActivity {
         }
     }
 
-    public void bitmapToString(final PhotoHandler h){
+    public void bitmapToString(final PhotoHandler h) {
         Observable.just(mBitmap)
                 .map(new Func1<Bitmap, String>() {
-                    @Override
-                    public String call(Bitmap bitmap) {
-                        if (bitmap == null) return null;
-                        String photo = null;
-                        ByteArrayOutputStream baos = null;
-                        try {
-                            baos  = new ByteArrayOutputStream();
+                         @Override
+                         public String call(Bitmap bitmap) {
+                             if (bitmap == null) return null;
+                             String photo = null;
+                             ByteArrayOutputStream baos = null;
+                             try {
+                                 baos = new ByteArrayOutputStream();
 
-                            //将bitmap一字节流输出 Bitmap.CompressFormat.PNG 压缩格式，100：压缩率，baos：字节流
-                            bitmap = Bitmap.createScaledBitmap(bitmap, 150, 150, true);
-                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-
-
-                            byte[] buffers = baos.toByteArray();
-                            System.out.println("图片的大小：" + buffers.length);
-
-                            //将图片的字节流数据加密成base64字符输出
-                            photo = Base64.encodeToString(buffers, 0, buffers.length, Base64.DEFAULT);
+                                 //将bitmap一字节流输出 Bitmap.CompressFormat.PNG 压缩格式，100：压缩率，baos：字节流
+                                 bitmap = Bitmap.createScaledBitmap(bitmap, 150, 150, true);
+                                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
 
 
-                        }finally {
-                            if(baos != null)
-                                try {
-                                    baos.close();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                        }
+                                 byte[] buffers = baos.toByteArray();
+                                 System.out.println("图片的大小：" + buffers.length);
 
-                            return photo;
-                        }
-                    }
+                                 //将图片的字节流数据加密成base64字符输出
+                                 photo = Base64.encodeToString(buffers, 0, buffers.length, Base64.DEFAULT);
 
-                    ).
 
-                    observeOn(AndroidSchedulers.mainThread()
+                             } finally {
+                                 if (baos != null)
+                                     try {
+                                         baos.close();
+                                     } catch (IOException e) {
+                                         e.printStackTrace();
+                                     }
+                             }
 
-                    )
-                            .
+                             return photo;
+                         }
+                     }
 
-                    subscribeOn(Schedulers.newThread()
+                ).
 
-                    )
-                            .
+                observeOn(AndroidSchedulers.mainThread()
 
-                    subscribe(new Action1<String>() {
-                                  @Override
-                                  public void call(String s) {
-                                      if (h != null) {
-                                          h.handler(s);
+                )
+                .
+
+                        subscribeOn(Schedulers.newThread()
+
+                        )
+                .
+
+                        subscribe(new Action1<String>() {
+                                      @Override
+                                      public void call(String s) {
+                                          if (h != null) {
+                                              h.handler(s);
+                                          }
                                       }
                                   }
-                              }
 
-                    );
+                        );
 
 
-                }
+    }
 
-        public interface PhotoHandler{
-       void handler(String s);
+    public interface PhotoHandler {
+        void handler(String s);
     }
 }

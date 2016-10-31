@@ -36,17 +36,17 @@ public class ImageViewPlus extends ImageView {
     @Override
     protected void onDraw(Canvas canvas) {
         Bitmap rawBitmap = getBitmap(getDrawable());
-        if (rawBitmap != null){
+        if (rawBitmap != null) {
             int viewWidth = getWidth();
             int viewHeight = getHeight();
             int viewMinSize = Math.min(viewWidth, viewHeight);
             float dstWidth = viewMinSize;
             float dstHeight = viewMinSize;
-            if (mShader == null || !rawBitmap.equals(mRawBitmap)){
+            if (mShader == null || !rawBitmap.equals(mRawBitmap)) {
                 mRawBitmap = rawBitmap;
                 mShader = new BitmapShader(mRawBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
             }
-            if (mShader != null){
+            if (mShader != null) {
                 mMatrix.setScale(dstWidth / rawBitmap.getWidth(), dstHeight / rawBitmap.getHeight());
                 mShader.setLocalMatrix(mMatrix);
             }
@@ -58,14 +58,14 @@ public class ImageViewPlus extends ImageView {
         }
     }
 
-    private Bitmap getBitmap(Drawable drawable){
-        if (drawable instanceof BitmapDrawable){
-            return ((BitmapDrawable)drawable).getBitmap();
-        } else if (drawable instanceof ColorDrawable){
+    private Bitmap getBitmap(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        } else if (drawable instanceof ColorDrawable) {
             Rect rect = drawable.getBounds();
             int width = rect.right - rect.left;
             int height = rect.bottom - rect.top;
-            int color = ((ColorDrawable)drawable).getColor();
+            int color = ((ColorDrawable) drawable).getColor();
             Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             canvas.drawARGB(Color.alpha(color), Color.red(color), Color.green(color), Color.blue(color));

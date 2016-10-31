@@ -28,26 +28,24 @@ public class DateUtils {
             case 11:
                 return 30;
             case 2:
-                if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)){
+                if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) {
                     return 29;
-                }else{
+                } else {
                     return 28;
                 }
             default:
-                return  -1;
+                return -1;
         }
     }
 
     /**
      * 返回当前月份1号位于周几
-     * @param year
-     * 		年份
-     * @param month
-     * 		月份，传入系统获取的，不需要正常的
-     * @return
-     * 	日：1		一：2		二：3		三：4		四：5		五：6		六：7
+     *
+     * @param year  年份
+     * @param month 月份，传入系统获取的，不需要正常的
+     * @return 日：1		一：2		二：3		三：4		四：5		五：6		六：7
      */
-    public static int getFirstDayWeek(int year, int month){
+    public static int getFirstDayWeek(int year, int month) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, 1);
         return calendar.get(Calendar.DAY_OF_WEEK);

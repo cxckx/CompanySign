@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="true"
-    android:orientation="vertical"
-    android:padding="20dp"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:clickable="true"
+             android:orientation="vertical"
+             android:padding="20dp"
     >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical"
-        android:background="@drawable/dialog_shape">
+        android:background="@drawable/dialog_shape"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/title"
@@ -21,14 +21,14 @@
             android:layout_height="40.0dp"
             android:gravity="center"
             android:text="提示"
-            android:visibility="visible" />
+            android:visibility="visible"/>
 
         <LinearLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@color/colorWhite">
+            android:background="@color/colorWhite"
+            android:gravity="center">
 
 
             <TextView
@@ -36,16 +36,16 @@
                 style="@style/text_16_666666"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
                 android:gravity="center"
                 android:lineSpacingMultiplier="1.5"
-                android:minHeight="120.0dip"
-                android:layout_margin="@dimen/fab_margin"/>
+                android:minHeight="120.0dip"/>
         </LinearLayout>
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1.0px"
-            android:background="#ffd0d0d0" />
+            android:background="#ffd0d0d0"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -53,7 +53,7 @@
             android:layout_gravity="bottom"
             android:background="#e0e0e0"
             android:gravity="center"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/positiveButton"
@@ -62,7 +62,7 @@
                 android:layout_height="40.0dip"
                 android:background="@drawable/btn_dialog_ok_shape"
                 android:gravity="center"
-                android:text="是" />
+                android:text="是"/>
 
             <Button
                 android:id="@+id/negativeButton"
@@ -72,7 +72,7 @@
                 android:layout_marginLeft="20.0dip"
                 android:background="@drawable/btn_dialog_cancle_shape"
                 android:gravity="center"
-                android:text="否" />
+                android:text="否"/>
         </LinearLayout>
     </LinearLayout>
 

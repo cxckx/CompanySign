@@ -25,8 +25,8 @@ public class CountDownTimer extends android.os.CountDownTimer {
         notify.notifyFinish();
     }
 
-    public CountDownTimer(long millisInFuture, long countDownInterval,Notify notify){
-        super(millisInFuture,countDownInterval);
+    public CountDownTimer(long millisInFuture, long countDownInterval, Notify notify) {
+        super(millisInFuture, countDownInterval);
         this.notify = notify;
     }
 

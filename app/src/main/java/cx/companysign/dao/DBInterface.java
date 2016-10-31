@@ -36,7 +36,7 @@ public class DBInterface {
     }
 
     private DBInterface() {
-         initDbHelp(CompanySignApp.applicationContext, "company.db");
+        initDbHelp(CompanySignApp.applicationContext, "company.db");
     }
 
     /**
@@ -45,7 +45,7 @@ public class DBInterface {
      * check
      */
     public void close() {
-        if (openHelper != null){
+        if (openHelper != null) {
             openHelper.close();
             openHelper = null;
             context = null;
@@ -94,41 +94,41 @@ public class DBInterface {
     }
 
 
-
-    public List<UserEntity> loadAllUser(){
+    public List<UserEntity> loadAllUser() {
         UserEntityDao customerDAO = openReadableDb().getUserEntityDao();
         List<UserEntity> customers = customerDAO.loadAll();
         return customers;
     }
 
-    public List<UserEntity> loadUserbyPartCompany(String partCompany){
+    public List<UserEntity> loadUserbyPartCompany(String partCompany) {
         UserEntityDao customerDAO = openReadableDb().getUserEntityDao();
         List<UserEntity> customers = customerDAO.queryBuilder().where(UserEntityDao.Properties.UserPartCompany.eq(partCompany)).list();
         return customers;
     }
-    public List<UserEntity> loadUserbyBranch(String branch){
+
+    public List<UserEntity> loadUserbyBranch(String branch) {
         UserEntityDao customerDAO = openReadableDb().getUserEntityDao();
         List<UserEntity> customers = customerDAO.queryBuilder().where(UserEntityDao.Properties.UserBranch.eq(branch)).list();
         return customers;
     }
 
-    public UserEntity getUser(String phone){
+    public UserEntity getUser(String phone) {
         UserEntityDao customerDAO = openReadableDb().getUserEntityDao();
         UserEntity user = customerDAO.queryBuilder().where(UserEntityDao.Properties.UserPhone.eq(phone)).unique();
         return user;
     }
 
 
-
-    public void insertOrUpdateUser(List<UserEntity> entities){
-        UserEntityDao dao=openWritableDb().getUserEntityDao();
+    public void insertOrUpdateUser(List<UserEntity> entities) {
+        UserEntityDao dao = openWritableDb().getUserEntityDao();
         dao.insertOrReplaceInTx(entities);
     }
 
-    public int getUserCount(){
+    public int getUserCount() {
         return openReadableDb().getUserEntityDao().loadAll().size();
     }
-    public void clear(){
+
+    public void clear() {
         openWritableDb().getUserEntityDao().deleteAll();
     }
 

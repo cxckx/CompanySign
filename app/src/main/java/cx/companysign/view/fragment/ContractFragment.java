@@ -479,8 +479,8 @@ public class ContractFragment extends Fragment implements Receiver{
                 }
                 ContractImageItemCell cell = (ContractImageItemCell) convertView;
                 byte[] photoimg = new byte[0];
-                photoimg =  Base64.decode(content.getHeader(), Base64.DEFAULT);
-                Bitmap bitmap = BitmapFactory.decodeByteArray(photoimg,0,photoimg.length);
+                photoimg = Base64.decode(content.getHeader(), Base64.DEFAULT);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(photoimg, 0, photoimg.length);
                 cell.setImage(bitmap);
                 cell.setText(content.getName());
 

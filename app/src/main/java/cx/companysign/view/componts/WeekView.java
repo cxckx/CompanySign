@@ -13,7 +13,7 @@ import cx.companysign.R;
 /**
  * Created by zhouyou on 2016/7/25.
  * Class desc:
- *
+ * <p/>
  * 自定义日历顶部星期View
  */
 public class WeekView extends View {
@@ -69,7 +69,7 @@ public class WeekView extends View {
         mPaint.setTextSize(mWeekTextSize * mMetrics.scaledDensity);
         mPaint.setColor(mWeekTextColor);
         int columnWidth = width / 7;
-        for(int i = 0; i < mWeeks.length; i++){
+        for (int i = 0; i < mWeeks.length; i++) {
             String text = mWeeks[i];
             int fontWidth = (int) mPaint.measureText(text);
             int startX = columnWidth * i + (columnWidth - fontWidth) / 2;
@@ -81,28 +81,28 @@ public class WeekView extends View {
     /**
      * 设置星期数据（默认值："日","一","二","三","四","五","六"）
      */
-    public void setWeeks(String[] weeks){
+    public void setWeeks(String[] weeks) {
         this.mWeeks = weeks;
     }
 
     /**
      * 设置星期字体大小
      */
-    public void setWeekTextSize(int size){
+    public void setWeekTextSize(int size) {
         this.mWeekTextSize = size;
     }
 
     /**
      * 设置星期背景颜色
      */
-    public void setWeekBgColor(int color){
+    public void setWeekBgColor(int color) {
         this.mWeekBgColor = color;
     }
 
     /**
      * 设置星期文字颜色
      */
-    public void setWeekTextColor(int color){
+    public void setWeekTextColor(int color) {
         this.mWeekTextColor = color;
     }
 }

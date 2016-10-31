@@ -9,13 +9,12 @@ import android.widget.TextView;
 import com.example.cxcxk.android_my_library.utils.AndroidUtils;
 import com.example.cxcxk.android_my_library.utils.LayoutHelper;
 
-import cx.companysign.R;
-
 /**
  * Created by cxcxk on 2016/10/15.
  */
 public class SortLabelView extends LinearLayout {
     TextView text;
+
     public SortLabelView(Context context) {
         super(context);
         init(context);
@@ -31,7 +30,7 @@ public class SortLabelView extends LinearLayout {
         init(context);
     }
 
-    private void init(Context context){
+    private void init(Context context) {
         setOrientation(VERTICAL);
 
         text = new TextView(context);
@@ -42,7 +41,7 @@ public class SortLabelView extends LinearLayout {
         addView(text, LayoutHelper.createLinearLayout(LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT, 0, AndroidUtils.dip2px(context, 16), AndroidUtils.dip2px(context, 4), 0, AndroidUtils.dip2px(context, 4)));
     }
 
-    public void setText(String text){
+    public void setText(String text) {
         this.text.setText(text);
     }
 }

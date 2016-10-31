@@ -57,12 +57,13 @@ public class SignActivity extends BaseActivity {
     String address;
     float radius;
     TextView addressView;
-    double longitude,latitude;
+    double longitude, latitude;
     NetDataOperater operator;
     Button signBtn;
     int isSign = 0;
     NetDataOperater.Attribute attr;
-    boolean isChanged =  false;
+    boolean isChanged = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,16 +113,16 @@ public class SignActivity extends BaseActivity {
         operator = new WebServiceDataNetOperator();
         signBtn = (Button) findViewById(R.id.qiandao);
 
-        isSign = getIntent().getIntExtra("issign",-1);
+        isSign = getIntent().getIntExtra("issign", -1);
         List<String> list = new ArrayList<>();
         list.add(new SimpleDateFormat("yyyyMMdd").format(new Date()));
         calendarView.setOptionalDate(list);
-        if(isSign == 0){
+        if (isSign == 0) {
             signBtn.setText("签退");
             List<String> list1 = new ArrayList<>();
             list1.add(new SimpleDateFormat("yyyyMMdd").format(new Date()));
             calendarView.setSelectedDates(list1);
-        }else if (isSign == -1){
+        } else if (isSign == -1) {
 
             signBtn.setText("签到");
         }
@@ -133,7 +134,7 @@ public class SignActivity extends BaseActivity {
 
                 if (isSign == -1) {
                     attr.setMethodName(ConnectHelper.METHOD.INSERTSIGNIN);
-                } else if(isSign == 0){
+                } else if (isSign == 0) {
                     attr.setMethodName(ConnectHelper.METHOD.INSERTSIGNOUT);
                 }
 
@@ -144,7 +145,7 @@ public class SignActivity extends BaseActivity {
                 map.put("arg2", address);
                 map.put("arg3", longitude + "");
                 map.put("arg4", latitude + "");
-                map.put("arg5",radius+"");
+                map.put("arg5", radius + "");
                 attr.setParams(map);
                 operator.request(attr, "1");
             }
@@ -153,7 +154,7 @@ public class SignActivity extends BaseActivity {
         attr.setNetWork(new INetWork() {
             @Override
             public void OnCompleted(Object o) {
-                if(o.toString() == "") return ;
+                if (o.toString() == "") return;
                 if (Boolean.parseBoolean(o.toString())) {
                     isChanged = true;
                     if (isSign == -1) {
@@ -190,13 +191,14 @@ public class SignActivity extends BaseActivity {
 
         locationListener = new BDLocationListener() {
             private String lastFloor = null;
+
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
                 // map view 销毁后不在处理新接收的位置
                 if (bdLocation == null || mapView == null) {
                     return;
                 }
-                address = bdLocation.getAddrStr()+bdLocation.getLocationDescribe();
+                address = bdLocation.getAddrStr() + bdLocation.getLocationDescribe();
                 longitude = bdLocation.getLongitude();
                 latitude = bdLocation.getLatitude();
                 String bid = bdLocation.getBuildingID();
@@ -207,7 +209,7 @@ public class SignActivity extends BaseActivity {
                         String floor = bdLocation.getFloor().toUpperCase();// 楼层
                         //Log.i("indoor", "floor = " + floor + " position = " + mFloorListAdapter.getPosition(floor));
                         Log.i("indoor", "radius = " + bdLocation.getRadius() + " type = " + bdLocation.getNetworkLocationType());
-                        address += floor+"层";
+                        address += floor + "层";
                         boolean needUpdateFloor = true;
                         if (lastFloor == null) {
                             lastFloor = floor;
@@ -236,9 +238,9 @@ public class SignActivity extends BaseActivity {
                         .direction(100).latitude(bdLocation.getLatitude())
                         .longitude(bdLocation.getLongitude()).build();
                 map.setMyLocationData(locData);
-                if(isFirstLoc){
+                if (isFirstLoc) {
                     isFirstLoc = false;
-                    LatLng cenpt = new LatLng(bdLocation.getLatitude(),bdLocation.getLongitude());
+                    LatLng cenpt = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
                     //定义地图状态
                     MapStatus mMapStatus = new MapStatus.Builder()
                             .target(cenpt)
@@ -251,7 +253,7 @@ public class SignActivity extends BaseActivity {
                     //改变地图状态
                     map.setMapStatus(mMapStatusUpdate);
                 }
-                addressView.setText("位置: "+address);
+                addressView.setText("位置: " + address);
             }
         };
         service.registerListener(locationListener);
@@ -263,7 +265,7 @@ public class SignActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent();
-        intent.putExtra("isSign",isSign);
+        intent.putExtra("isSign", isSign);
         //intent.putExtra("isRequest",isChanged);
         setResult(0, intent);
         super.onBackPressed();
@@ -297,7 +299,7 @@ public class SignActivity extends BaseActivity {
         service.stop();
         map.setMyLocationEnabled(false);
         mapView.onDestroy();
-        if(!operator.isRunFinish()){
+        if (!operator.isRunFinish()) {
             operator.cancleAllRequest();
         }
     }

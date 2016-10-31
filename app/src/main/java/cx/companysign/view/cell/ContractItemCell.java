@@ -45,7 +45,7 @@ public class ContractItemCell extends LinearLayout {
 
         LayoutParams params = LayoutHelper.createLinearLayout(LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT);
         params.leftMargin = AndroidUtils.dip2px(context, 16);
-        params.topMargin = AndroidUtils.dip2px(context,0);
+        params.topMargin = AndroidUtils.dip2px(context, 0);
         addView(cell, params);
 
         //cell.setText("陈晓");
@@ -70,7 +70,7 @@ public class ContractItemCell extends LinearLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(AndroidUtils.dip2px(getContext(),72),MeasureSpec.EXACTLY));
+        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(AndroidUtils.dip2px(getContext(), 72), MeasureSpec.EXACTLY));
     }
 
     @Override
@@ -81,8 +81,8 @@ public class ContractItemCell extends LinearLayout {
     }
 
     public void setText(String name) {
-       this.name.setText(name);
+        this.name.setText(name);
         this.cell.setText(name);
-       setWillNotDraw(false);
+        setWillNotDraw(false);
     }
 }

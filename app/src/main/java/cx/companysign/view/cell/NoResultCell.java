@@ -31,7 +31,7 @@ public class NoResultCell extends RelativeLayout {
         init(context);
     }
 
-    private void init(Context context){
+    private void init(Context context) {
         view = new TextView(context);
 
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -40,12 +40,12 @@ public class NoResultCell extends RelativeLayout {
         addView(view, params);
     }
 
-    public void setText(String text){
+    public void setText(String text) {
         view.setText(text);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(AndroidUtils.dip2px(getContext(), 40),MeasureSpec.EXACTLY));
+        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(AndroidUtils.dip2px(getContext(), 40), MeasureSpec.EXACTLY));
     }
 }

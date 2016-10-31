@@ -117,12 +117,12 @@ public class AppDialog extends Dialog {
             return this;
         }
 
-        public Builder setCancleable(boolean cancleable){
+        public Builder setCancleable(boolean cancleable) {
             this.cancleable = cancleable;
             return this;
         }
 
-        public Builder setCancleableOnTouchOutSide(boolean cancleable){
+        public Builder setCancleableOnTouchOutSide(boolean cancleable) {
             this.touchOutSide = cancleable;
             return this;
         }
@@ -141,7 +141,7 @@ public class AppDialog extends Dialog {
             final AppDialog dialog = new AppDialog(context, R.style.Dialog);
             View layout = inflater.inflate(R.layout.my_dialog_layout, null);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,  ViewGroup.LayoutParams.WRAP_CONTENT));
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             // set the dialog title
             ((TextView) layout.findViewById(R.id.title)).setText(title);
             // set the confirm button
@@ -189,7 +189,7 @@ public class AppDialog extends Dialog {
                 ((LinearLayout) layout.findViewById(R.id.content))
                         .removeAllViews();
                 ((LinearLayout) layout.findViewById(R.id.content))
-                        .addView(contentView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
+                        .addView(contentView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             }
             dialog.setContentView(layout);
             dialog.setCanceledOnTouchOutside(touchOutSide);

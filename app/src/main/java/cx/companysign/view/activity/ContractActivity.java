@@ -56,6 +56,7 @@ public class ContractActivity extends BaseActivity {
     ProgressDialog dialog;
     SortListAdapter sortListAdapter;
     SortLineLayout sortLineLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,33 +84,33 @@ public class ContractActivity extends BaseActivity {
         listView = (ListView) findViewById(R.id.contract_list);
         listView.setDivider(null);
         listView.setDividerHeight(0);
-        type = getIntent().getIntExtra("type",-1);
-        if (type > 0){
+        type = getIntent().getIntExtra("type", -1);
+        if (type > 0) {
             List<UserEntity> entities = null;
             attribute = ConnectHelper.createAttribute();
-            if(type == Receiver.BRANCH_CONTRACT){
+            if (type == Receiver.BRANCH_CONTRACT) {
                 attribute.setMethodName(ConnectHelper.METHOD.GETUSERBYBRANCHNAME);
                 entities = DBInterface.instance().loadUserbyBranch(title);
 
-            }else if(type == Receiver.PARTCOMPANY_CONTRACT){
+            } else if (type == Receiver.PARTCOMPANY_CONTRACT) {
                 attribute.setMethodName(ConnectHelper.METHOD.GETUSERBYPARTCOMPANYNAME);
                 entities = DBInterface.instance().loadUserbyBranch(title);
             }
-            Map<String,String> map = new HashMap<>();
+            Map<String, String> map = new HashMap<>();
             map.put("arg0", title);
             attribute.setParams(map);
 
-            if(entities == null || entities.size() == 0){
+            if (entities == null || entities.size() == 0) {
                 dialog = new ProgressDialog(this);
                 dialog.setMessage("正在获取数据...");
                 dialog.setCanceledOnTouchOutside(false);
                 dialog.show();
-                operator.request(attribute,"1");
-            }else {
-                for (UserEntity entity:entities){
+                operator.request(attribute, "1");
+            } else {
+                for (UserEntity entity : entities) {
                     users.add(User.UserEntityToUser(entity));
                 }
-                sortListAdapter = new MySortAdapter(ContractActivity.this,UserToNameHeader());
+                sortListAdapter = new MySortAdapter(ContractActivity.this, UserToNameHeader());
                 sortLineLayout.addLable(sortListAdapter.getWhichChars());
                 sortLineLayout.setSelect(0);
                 listView.setAdapter(sortListAdapter);
@@ -120,7 +121,7 @@ public class ContractActivity extends BaseActivity {
         attribute.setNetWork(new INetWork() {
             @Override
             public void OnCompleted(Object o) {
-                if ( o.toString() == "") return;
+                if (o.toString() == "") return;
                 users.clear();
                 dialog.dismiss();
                 String json = o.toString();
@@ -144,7 +145,7 @@ public class ContractActivity extends BaseActivity {
                 } else {
                     problemLayout.setVisibility(View.GONE);
                 }
-                sortListAdapter = new MySortAdapter(ContractActivity.this,UserToNameHeader());
+                sortListAdapter = new MySortAdapter(ContractActivity.this, UserToNameHeader());
                 sortLineLayout.addLable(sortListAdapter.getWhichChars());
                 sortLineLayout.setSelect(0);
                 listView.setAdapter(sortListAdapter);
@@ -230,9 +231,9 @@ public class ContractActivity extends BaseActivity {
 
     }
 
-    private List<NameHeader> UserToNameHeader(){
+    private List<NameHeader> UserToNameHeader() {
         List<NameHeader> list = new ArrayList<>();
-        for (User user:users){
+        for (User user : users) {
             NameHeader header = new NameHeader();
             header.setHeader(user.getUserIconHeader());
             header.setName(user.getUserName());
@@ -264,16 +265,16 @@ public class ContractActivity extends BaseActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-                if(convertView == null){
-                    convertView = new ContractItemCell(ContractActivity.this);
-                }
-                ContractItemCell cell = (ContractItemCell) convertView;
-                cell.setText(users.get(position).getUserName());
+            if (convertView == null) {
+                convertView = new ContractItemCell(ContractActivity.this);
+            }
+            ContractItemCell cell = (ContractItemCell) convertView;
+            cell.setText(users.get(position).getUserName());
             return convertView;
         }
     }
 
-    class MySortAdapter extends SortListAdapter{
+    class MySortAdapter extends SortListAdapter {
 
 
         public MySortAdapter(Context context, List<NameHeader> SortContents) {
@@ -281,21 +282,21 @@ public class ContractActivity extends BaseActivity {
         }
 
         @Override
-        public View contentView(NameHeader content,int position, View convertView, ViewGroup parent) {
-            int viewType =  getItemViewType(position);
-            if(viewType == 2){
-                if(convertView == null){
+        public View contentView(NameHeader content, int position, View convertView, ViewGroup parent) {
+            int viewType = getItemViewType(position);
+            if (viewType == 2) {
+                if (convertView == null) {
                     convertView = new ContractItemCell(ContractActivity.this);
                 }
                 ContractItemCell cell = (ContractItemCell) convertView;
                 cell.setText(content.getName());
-            }else if (viewType == 1){
-                if(convertView == null){
+            } else if (viewType == 1) {
+                if (convertView == null) {
                     convertView = new ContractImageItemCell(ContractActivity.this);
                 }
                 ContractImageItemCell cell = (ContractImageItemCell) convertView;
                 byte[] photoimg = new byte[0];
-                photoimg = Base64.decode(content.getHeader(),Base64.DEFAULT);
+                photoimg = Base64.decode(content.getHeader(), Base64.DEFAULT);
                 Bitmap bitmap = BitmapFactory.decodeByteArray(photoimg, 0, photoimg.length);
                 cell.setImage(bitmap);
                 cell.setText(content.getName());
@@ -309,8 +310,8 @@ public class ContractActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(operator != null){
-            if(!operator.isRunFinish()){
+        if (operator != null) {
+            if (!operator.isRunFinish()) {
                 operator.cancleAllRequest();
             }
         }

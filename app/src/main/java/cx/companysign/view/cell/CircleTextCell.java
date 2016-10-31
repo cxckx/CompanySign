@@ -17,11 +17,11 @@ import cx.companysign.R;
  */
 public class CircleTextCell extends View {
 
-    private static Paint textPaint,circlePaint;
+    private static Paint textPaint, circlePaint;
     String text = "";
 
 
-    int colors[] = {R.color.organce,R.color.blue,R.color.green};
+    int colors[] = {R.color.organce, R.color.blue, R.color.green};
     int mCurrentColor = R.color.blue;
 
 
@@ -40,8 +40,8 @@ public class CircleTextCell extends View {
         init(context);
     }
 
-    private void init(Context context){
-        if(textPaint == null){
+    private void init(Context context) {
+        if (textPaint == null) {
             textPaint = new Paint();
             textPaint.setDither(true);
             textPaint.setAntiAlias(true);
@@ -51,7 +51,7 @@ public class CircleTextCell extends View {
             textPaint.setTextSize(AndroidUtils.dip2px(context, 15));
         }
 
-        if(circlePaint == null){
+        if (circlePaint == null) {
             circlePaint = new Paint();
             circlePaint.setDither(true);
             circlePaint.setAntiAlias(true);
@@ -62,15 +62,15 @@ public class CircleTextCell extends View {
 
     }
 
-    public void setColorIndex(int index){
-        if(index >= 0 && index < colors.length){
+    public void setColorIndex(int index) {
+        if (index >= 0 && index < colors.length) {
             mCurrentColor = colors[index];
         }
         circlePaint.setColor(getResources().getColor(mCurrentColor));
         invalidate();
     }
 
-    public void setShowText(String text){
+    public void setShowText(String text) {
         this.text = text;
         invalidate();
     }
@@ -78,14 +78,14 @@ public class CircleTextCell extends View {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight()/2, canvas.getHeight()*3/8, circlePaint);
+        canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, canvas.getHeight() * 3 / 8, circlePaint);
         float width = textPaint.measureText(text);
-        float height = textPaint.getFontMetrics().ascent+textPaint.getFontMetrics().descent;
+        float height = textPaint.getFontMetrics().ascent + textPaint.getFontMetrics().descent;
         canvas.drawText(text, (canvas.getWidth() - width) / 2, (canvas.getHeight() - height) / 2, textPaint);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(MeasureSpec.makeMeasureSpec(AndroidUtils.dip2px(getContext(),56),MeasureSpec.EXACTLY), heightMeasureSpec);
+        super.onMeasure(MeasureSpec.makeMeasureSpec(AndroidUtils.dip2px(getContext(), 56), MeasureSpec.EXACTLY), heightMeasureSpec);
     }
 }

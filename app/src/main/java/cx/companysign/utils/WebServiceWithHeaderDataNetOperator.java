@@ -13,6 +13,6 @@ public class WebServiceWithHeaderDataNetOperator extends NetDataOperater<String>
         WebServiceUtil serviceUtil = new WebServiceUtil(attribute);
         serviceUtil.setOutLog(true);
         serviceUtil.setIsDotNet(false);
-        return serviceUtil.GetString(attribute.getUrl(),attribute.getNameSpace(),attribute.getMethodName(),attribute.getParams(),attribute.getSoapHeaderName(),attribute.getSoapHeaderValues());
+        return serviceUtil.GetString(attribute.getUrl(), attribute.getNameSpace(), attribute.getMethodName(), attribute.getParams(), attribute.getSoapHeaderName(), attribute.getSoapHeaderValues());
     }
 }

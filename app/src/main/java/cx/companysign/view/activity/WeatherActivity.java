@@ -48,7 +48,7 @@ import cx.companysign.view.componts.AppDialog;
  */
 public class WeatherActivity extends BaseActivity {
 
-    TextView locationView,temp,mWeather,pm_25;
+    TextView locationView, temp, mWeather, pm_25;
     WeathersCell cell;
     private LocationService locationService;
     public MyLocationListenner myListener = new MyLocationListenner();
@@ -58,18 +58,18 @@ public class WeatherActivity extends BaseActivity {
 
     List<WeatherIndex> indexes = new ArrayList<>();
     RecycleAdapter adapter;
-    ProgressDialog dialog ;
+    ProgressDialog dialog;
 
     NetDataOperater operater;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1000&&data != null){
+        if (requestCode == 1000 && data != null) {
             String city = data.getStringExtra("city");
             final NetDataOperater.Attribute attribute = ConnectHelper.createWeatherAttr();
-            Map<String,String> map = attribute.getParams();
-            if(map ==null) map = new HashMap<>();
+            Map<String, String> map = attribute.getParams();
+            if (map == null) map = new HashMap<>();
             map.put("location", city + "市");
             operater.request(attribute, "1");
             dialog.setMessage("正在加载...");
@@ -77,7 +77,7 @@ public class WeatherActivity extends BaseActivity {
             attribute.setNetWork(new INetWork() {
                 @Override
                 public void OnCompleted(Object o) {
-                    if (o.toString().equals("")) return ;
+                    if (o.toString().equals("")) return;
                     parseJson(o.toString());
                     dialog.dismiss();
                 }
@@ -92,7 +92,7 @@ public class WeatherActivity extends BaseActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
-                                    operater.request(attribute,"1");
+                                    operater.request(attribute, "1");
                                 }
                             }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                                 @Override
@@ -207,15 +207,15 @@ public class WeatherActivity extends BaseActivity {
                 MapStatus.Builder builder = new MapStatus.Builder();
                 builder.target(ll).zoom(18.0f);
                 final NetDataOperater.Attribute attribute = ConnectHelper.createWeatherAttr();
-                Map<String,String> map = attribute.getParams();
-                if(map ==null) map = new HashMap<>();
+                Map<String, String> map = attribute.getParams();
+                if (map == null) map = new HashMap<>();
                 map.put("location", location.getLongitude() + "," + location.getLatitude());
                 operater.request(attribute, "1");
                 dialog.setMessage("正在加载...");
                 attribute.setNetWork(new INetWork() {
                     @Override
                     public void OnCompleted(Object o) {
-                        if(o.toString().equals("")) return ;
+                        if (o.toString().equals("")) return;
                         parseJson(o.toString());
                         dialog.dismiss();
                     }
@@ -230,7 +230,7 @@ public class WeatherActivity extends BaseActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
-                                        operater.request(attribute,"1");
+                                        operater.request(attribute, "1");
                                     }
                                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                                     @Override
@@ -259,12 +259,12 @@ public class WeatherActivity extends BaseActivity {
     /**
      * RecycleView的适配器
      */
-    class RecycleAdapter extends RecyclerView.Adapter<ViewHolder>{
+    class RecycleAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(WeatherActivity.this)
-                    .inflate(R.layout.weather_index_item_layout,null);
+                    .inflate(R.layout.weather_index_item_layout, null);
             ViewHolder holder = new ViewHolder(view);
             holder.content = (TextView) holder.itemView.findViewById(R.id.content);
             holder.status = (TextView) holder.itemView.findViewById(R.id.status);
@@ -276,7 +276,7 @@ public class WeatherActivity extends BaseActivity {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.title.setText(indexes.get(position).getTitle());
-            holder.status.setText(indexes.get(position).getTips()+":  ");
+            holder.status.setText(indexes.get(position).getTips() + ":  ");
             holder.content.setText(indexes.get(position).getDes());
         }
 
@@ -287,9 +287,10 @@ public class WeatherActivity extends BaseActivity {
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title,status,content;
+        TextView title, status, content;
+
         public ViewHolder(View itemView) {
             super(itemView);
         }
@@ -302,71 +303,71 @@ public class WeatherActivity extends BaseActivity {
         locationService.stop(); //停止定位服务
     }
 
-    public void parseJson(String json){
+    public void parseJson(String json) {
 
 
         final List<WeatherEntity> entityList = new ArrayList<>();
         JSONObject allJson = JSON.parseObject(json);
         String status = allJson.getString("status");
-        if(!TextUtils.isEmpty(status)&&status.equals("success")){
+        if (!TextUtils.isEmpty(status) && status.equals("success")) {
             indexes.clear();
             JSONArray results = allJson.getJSONArray("results");
             JSONObject oneObject = results.getJSONObject(0);
-            if(oneObject != null){
+            if (oneObject != null) {
                 final String pm25 = results.getJSONObject(0).getString("pm25");
                 final String city = results.getJSONObject(0).getString("currentCity");
                 JSONArray weather_data = results.getJSONObject(0).getJSONArray("weather_data");
                 final String weather = weather_data.getJSONObject(0).getString("weather");
                 final String nowTemp = weather_data.getJSONObject(0).getString("date");
-                for (int i = 0;i<weather_data.size();i++){
+                for (int i = 0; i < weather_data.size(); i++) {
                     WeatherEntity entity = new WeatherEntity();
                     JSONObject object = weather_data.getJSONObject(i);
                     entity.setWind(object.getString("wind"));
                     entity.setDayImage(object.getString("dayPictureUrl"));
                     entity.setNightImage(object.getString("nightPictureUrl"));
                     entity.setTemp(object.getString("temperature"));
-                    if(i != 0){
+                    if (i != 0) {
                         entity.setWeek(object.getString("date"));
-                    }else {
-                        entity.setWeek(object.getString("date").substring(0,object.getString("date").indexOf(" ")));
+                    } else {
+                        entity.setWeek(object.getString("date").substring(0, object.getString("date").indexOf(" ")));
                     }
                     entityList.add(entity);
                 }
 
                 JSONArray index = results.getJSONObject(0).getJSONArray("index");
-                for (int i = 0;i<index.size();i++){
+                for (int i = 0; i < index.size(); i++) {
                     JSONObject object = index.getJSONObject(i);
                     WeatherIndex index1 = new WeatherIndex();
-                    index1.setTitle(object.getString("title")+":  "+object.getString("zs"));
+                    index1.setTitle(object.getString("title") + ":  " + object.getString("zs"));
                     index1.setDes(object.getString("des"));
                     index1.setTips(object.getString("tipt"));
                     indexes.add(index1);
                 }
 
-                        locationView.setText(city);
-                        pm_25.setText("PM2.5: " + pm25+"  "+(!pm25.equals("")? WeatherImageUtils.getPollutionLevel(Integer.parseInt(pm25)):"未知"));
-                        mWeather.setText(weather);
-                        temp.setText(nowTemp.substring(nowTemp.lastIndexOf("：") + 1, nowTemp.length() - 1));
-                        cell.setDays(entityList.toArray(new WeatherEntity[entityList.size()]));
-                        adapter.notifyDataSetChanged();
+                locationView.setText(city);
+                pm_25.setText("PM2.5: " + pm25 + "  " + (!pm25.equals("") ? WeatherImageUtils.getPollutionLevel(Integer.parseInt(pm25)) : "未知"));
+                mWeather.setText(weather);
+                temp.setText(nowTemp.substring(nowTemp.lastIndexOf("：") + 1, nowTemp.length() - 1));
+                cell.setDays(entityList.toArray(new WeatherEntity[entityList.size()]));
+                adapter.notifyDataSetChanged();
 
-         }
-        }else {
+            }
+        } else {
 
-                    AppDialog dialog = new AppDialog.Builder(WeatherActivity.this)
-                            .setTitle("天气预报")
-                            .setMessage("天气查询失败")
-                            .setCancleableOnTouchOutSide(false)
-                            .setCancleable(false)
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    finish();
-                                }
-                            })
-                            .create();
-                    dialog.show();
+            AppDialog dialog = new AppDialog.Builder(WeatherActivity.this)
+                    .setTitle("天气预报")
+                    .setMessage("天气查询失败")
+                    .setCancleableOnTouchOutSide(false)
+                    .setCancleable(false)
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            finish();
+                        }
+                    })
+                    .create();
+            dialog.show();
 
         }
 

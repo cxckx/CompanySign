@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".view.activity.LoginActivity"
-    tools:showIn="@layout/activity_main"
-    android:orientation="vertical"
-    android:background="#F5F5F5">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#F5F5F5"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/activity_vertical_margin"
+              android:paddingLeft="@dimen/activity_horizontal_margin"
+              android:paddingRight="@dimen/activity_horizontal_margin"
+              android:paddingTop="@dimen/activity_vertical_margin"
+              app:layout_behavior="@string/appbar_scrolling_view_behavior"
+              tools:context=".view.activity.LoginActivity"
+              tools:showIn="@layout/activity_main">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/logo"/>
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="手机号"
         >
+
         <EditText
             android:id="@+id/edit_phone"
             android:layout_width="match_parent"
@@ -35,9 +38,10 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="密码"
         android:layout_marginTop="@dimen/fab_margin"
+        android:hint="密码"
         >
+
         <EditText
             android:id="@+id/edit_pwd"
             android:layout_width="match_parent"
@@ -46,38 +50,42 @@
             android:text="123456"
             />
     </android.support.design.widget.TextInputLayout>
+
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/fab_margin"
         android:background="@color/colorPrimaryDark"
-        android:textColor="@color/colorWhite"
-        android:text="登录"/>
+        android:text="登录"
+        android:textColor="@color/colorWhite"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/modify_pwd"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="修改密码"
-            android:textColor="@color/colorPrimary"
-            android:clickable="true"
             android:layout_marginTop="@dimen/fab_margin"
-            android:gravity="left"/>
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="left"
+            android:text="修改密码"
+            android:textColor="@color/colorPrimary"/>
+
         <TextView
             android:id="@+id/forget_pwd"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="忘记密码?"
-            android:textColor="@color/colorPrimary"
-            android:clickable="true"
             android:layout_marginTop="@dimen/fab_margin"
-            android:gravity="right"/>
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="right"
+            android:text="忘记密码?"
+            android:textColor="@color/colorPrimary"/>
     </LinearLayout>
 
 </LinearLayout>

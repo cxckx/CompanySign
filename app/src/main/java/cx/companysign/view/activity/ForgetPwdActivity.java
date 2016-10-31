@@ -36,13 +36,14 @@ import cx.companysign.view.componts.AppDialog;
 public class ForgetPwdActivity extends BaseActivity implements Notify {
 
     ActionBar actionBar;
-    EditText phone,checkNumEdit;
+    EditText phone, checkNumEdit;
     String code;
     private CountDownTimer countDownTimer;
-    Button checkNumBtn,checkPhoneBtn;
+    Button checkNumBtn, checkPhoneBtn;
     NetDataOperater operater;
     private long millsFuture = 60 * 1000;
     private long countDownInterval = 1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +64,7 @@ public class ForgetPwdActivity extends BaseActivity implements Notify {
                     if (TextUtils.isEmpty(code)) {
                         checkNumEdit.setError("请输入验证码");
                     } else {
-                        InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         im.hideSoftInputFromWindow(getCurrentFocus().getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                         SMSSDK.submitVerificationCode("86", phone.getText().toString(), code);
                     }
@@ -77,18 +78,18 @@ public class ForgetPwdActivity extends BaseActivity implements Notify {
         checkNumBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkPhone(phone.getText().toString())){
+                if (checkPhone(phone.getText().toString())) {
                     countDownTimer.start();
                     checkNumBtn.setText("60秒后重新发送");
                     checkNumBtn.setEnabled(false);
-                    SMSSDK.getVerificationCode("86",phone.getText().toString());
+                    SMSSDK.getVerificationCode("86", phone.getText().toString());
                 }
 
             }
         });
-        countDownTimer = new CountDownTimer(millsFuture,countDownInterval,this);
+        countDownTimer = new CountDownTimer(millsFuture, countDownInterval, this);
 
-        EventHandler eh=new EventHandler(){
+        EventHandler eh = new EventHandler() {
 
             @Override
             public void afterEvent(int event, int result, Object data) {
@@ -103,22 +104,22 @@ public class ForgetPwdActivity extends BaseActivity implements Notify {
                                 Toast.makeText(ForgetPwdActivity.this, "验证成功", Toast.LENGTH_SHORT)
                                         .show();
                                 countDownTimer.cancel();
-                                if(!getIntent().getBooleanExtra("type",false)){
-                                    Intent intent = new Intent(ForgetPwdActivity.this,ModifyPwdActivity.class);
-                                    intent.putExtra("phone",phone.getText().toString());
+                                if (!getIntent().getBooleanExtra("type", false)) {
+                                    Intent intent = new Intent(ForgetPwdActivity.this, ModifyPwdActivity.class);
+                                    intent.putExtra("phone", phone.getText().toString());
                                     startActivity(intent);
                                     finish();
-                                }else {
+                                } else {
                                     NetDataOperater.Attribute attribute = ConnectHelper.createAttribute();
                                     attribute.setMethodName(ConnectHelper.METHOD.GETPWD);
-                                    Map<String,String> map = new HashMap<String, String>();
-                                    map.put("arg0",phone.getText().toString());
+                                    Map<String, String> map = new HashMap<String, String>();
+                                    map.put("arg0", phone.getText().toString());
                                     attribute.setParams(map);
                                     operater.request(attribute, "2");
                                     attribute.setNetWork(new INetWork() {
                                         @Override
                                         public void OnCompleted(Object o) {
-                                            if(o.toString() == "") return ;
+                                            if (o.toString() == "") return;
                                             AppDialog appDialog = new AppDialog.Builder(ForgetPwdActivity.this)
                                                     .setTitle("密码")
                                                     .setMessage(DecodeUtils.decrypt(o.toString(), phone.getText().toString()))
@@ -137,7 +138,7 @@ public class ForgetPwdActivity extends BaseActivity implements Notify {
 
                                         @Override
                                         public void OnError(String s) {
-                                            Toast.makeText(ForgetPwdActivity.this,"获取失败",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ForgetPwdActivity.this, "获取失败", Toast.LENGTH_SHORT).show();
                                         }
 
                                         @Override
@@ -149,36 +150,36 @@ public class ForgetPwdActivity extends BaseActivity implements Notify {
 
                             }
                         });
-                    }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
+                    } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                         //获取验证码成功
-                        boolean smart = (Boolean)data;
-                        if(smart) {
+                        boolean smart = (Boolean) data;
+                        if (smart) {
                             //通过智能验证
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(ForgetPwdActivity.this,"智能验证成功",Toast.LENGTH_SHORT)
+                                    Toast.makeText(ForgetPwdActivity.this, "智能验证成功", Toast.LENGTH_SHORT)
                                             .show();
                                     countDownTimer.cancel();
-                                    if(!getIntent().getBooleanExtra("type",false)){
-                                        Intent intent = new Intent(ForgetPwdActivity.this,ModifyPwdActivity.class);
-                                        intent.putExtra("phone",phone.getText().toString());
+                                    if (!getIntent().getBooleanExtra("type", false)) {
+                                        Intent intent = new Intent(ForgetPwdActivity.this, ModifyPwdActivity.class);
+                                        intent.putExtra("phone", phone.getText().toString());
                                         startActivity(intent);
                                         finish();
-                                    }else {
+                                    } else {
                                         NetDataOperater.Attribute attribute = ConnectHelper.createAttribute();
                                         attribute.setMethodName(ConnectHelper.METHOD.GETPWD);
-                                        Map<String,String> map = new HashMap<String, String>();
-                                        map.put("arg0",phone.getText().toString());
+                                        Map<String, String> map = new HashMap<String, String>();
+                                        map.put("arg0", phone.getText().toString());
                                         attribute.setParams(map);
                                         operater.request(attribute, "2");
                                         attribute.setNetWork(new INetWork() {
                                             @Override
                                             public void OnCompleted(Object o) {
-                                                if(o.toString() == "") return ;
+                                                if (o.toString() == "") return;
                                                 AppDialog appDialog = new AppDialog.Builder(ForgetPwdActivity.this)
                                                         .setTitle("密码")
-                                                        .setMessage(DecodeUtils.decrypt(o.toString(),phone.getText().toString()))
+                                                        .setMessage(DecodeUtils.decrypt(o.toString(), phone.getText().toString()))
                                                         .setCancleableOnTouchOutSide(false)
                                                         .setCancleable(false)
                                                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -194,7 +195,7 @@ public class ForgetPwdActivity extends BaseActivity implements Notify {
 
                                             @Override
                                             public void OnError(String s) {
-                                                Toast.makeText(ForgetPwdActivity.this,"获取失败",Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(ForgetPwdActivity.this, "获取失败", Toast.LENGTH_SHORT).show();
                                             }
 
                                             @Override
@@ -206,11 +207,11 @@ public class ForgetPwdActivity extends BaseActivity implements Notify {
                                 }
                             });
                         }
-                    }else if (event ==SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES){
+                    } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
                         //返回支持发送验证码的国家列表
                     }
-                }else{
-                    ((Throwable)data).printStackTrace();
+                } else {
+                    ((Throwable) data).printStackTrace();
                 }
             }
         };
@@ -220,14 +221,14 @@ public class ForgetPwdActivity extends BaseActivity implements Notify {
         checkPhoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 im.hideSoftInputFromWindow(getCurrentFocus().getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                if(checkPhone(phone.getText().toString())){
+                if (checkPhone(phone.getText().toString())) {
 
                     NetDataOperater.Attribute attribute = ConnectHelper.createAttribute();
                     attribute.setMethodName(ConnectHelper.METHOD.ISHAVEPHONE);
-                    Map<String,String> map = new HashMap<String, String>();
-                    map.put("arg0",phone.getText().toString());
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("arg0", phone.getText().toString());
                     attribute.setParams(map);
                     final ProgressDialog dialog = new ProgressDialog(ForgetPwdActivity.this);
                     dialog.setCanceledOnTouchOutside(false);
@@ -237,24 +238,24 @@ public class ForgetPwdActivity extends BaseActivity implements Notify {
                     attribute.setNetWork(new INetWork() {
                         @Override
                         public void OnCompleted(Object o) {
-                            if(o.toString() == "") return ;
+                            if (o.toString() == "") return;
                             dialog.dismiss();
-                            if(Boolean.parseBoolean(o.toString())){
+                            if (Boolean.parseBoolean(o.toString())) {
                                 actionBar.addMenu(0, R.drawable.ic_check_white_24dp);
                                 Toast.makeText(ForgetPwdActivity.this, "验证成功", Toast.LENGTH_SHORT);
                                 findViewById(R.id.check_num_layout).setVisibility(View.VISIBLE);
                                 checkPhoneBtn.setEnabled(false);
                                 checkPhoneBtn.setText("已验证手机号");
                                 phone.setEnabled(false);
-                            }else {
-                                Toast.makeText(ForgetPwdActivity.this,"无效手机号",Toast.LENGTH_SHORT);
+                            } else {
+                                Toast.makeText(ForgetPwdActivity.this, "无效手机号", Toast.LENGTH_SHORT);
                             }
                         }
 
                         @Override
                         public void OnError(String s) {
                             dialog.dismiss();
-                            Toast.makeText(ForgetPwdActivity.this,"验证失败",Toast.LENGTH_SHORT);
+                            Toast.makeText(ForgetPwdActivity.this, "验证失败", Toast.LENGTH_SHORT);
                         }
 
                         @Override
@@ -262,7 +263,7 @@ public class ForgetPwdActivity extends BaseActivity implements Notify {
 
                         }
                     });
-                }else {
+                } else {
                     phone.setError("手机号无效");
                 }
             }
@@ -277,10 +278,11 @@ public class ForgetPwdActivity extends BaseActivity implements Notify {
 
     @Override
     public void notifyProgress(long mills) {
-        checkNumBtn.setText(mills / 1000+"秒后重新发送");
+        checkNumBtn.setText(mills / 1000 + "秒后重新发送");
     }
-    private boolean checkPhone(String phone){
-        if(TextUtils.isEmpty(phone) || phone.length() != 11){
+
+    private boolean checkPhone(String phone) {
+        if (TextUtils.isEmpty(phone) || phone.length() != 11) {
             return false;
         }
 
@@ -290,7 +292,7 @@ public class ForgetPwdActivity extends BaseActivity implements Notify {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(!operater.isRunFinish()){
+        if (!operater.isRunFinish()) {
             operater.cancleAllRequest();
         }
     }

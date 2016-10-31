@@ -3,7 +3,6 @@ package cx.companysign.view.componts;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -23,6 +22,7 @@ import cx.companysign.R;
 public class SortLineLayout extends LinearLayout {
     private List<TextView> textViewList = new ArrayList<>();
     private Context mContext;
+
     public SortLineLayout(Context context) {
         super(context);
         init(context);
@@ -38,18 +38,19 @@ public class SortLineLayout extends LinearLayout {
         init(context);
     }
 
-    public void init(Context context){
+    public void init(Context context) {
         setOrientation(VERTICAL);
         mContext = context;
         setPadding(AndroidUtils.dip2px(context, 8), 0, AndroidUtils.dip2px(context, 8), 0);
         setBackgroundColor(Color.parseColor("#55e0e0e0"));
     }
+
     int selectIndex = -1;
 
-    public void setSelect(int position){
-        if(getChildCount() == 0) return;
+    public void setSelect(int position) {
+        if (getChildCount() == 0) return;
         TextView view = (TextView) getChildAt(position);
-        if(selectIndex != -1){
+        if (selectIndex != -1) {
             TextView textView = (TextView) getChildAt(selectIndex);
             textView.setTextColor(Color.BLACK);
         }
@@ -57,12 +58,12 @@ public class SortLineLayout extends LinearLayout {
         selectIndex = position;
     }
 
-    public void clearLabel(){
+    public void clearLabel() {
         this.removeAllViews();
     }
 
-    public void addLable(final List<String> list){
-        for (String key:list){
+    public void addLable(final List<String> list) {
+        for (String key : list) {
             TextView textView = new TextView(mContext);
             textView.setClickable(true);
             textView.setText(key);
@@ -75,7 +76,7 @@ public class SortLineLayout extends LinearLayout {
                 @Override
                 public void onClick(View v) {
                     setSelect(Integer.parseInt(v.getTag().toString()));
-                    if (listener != null){
+                    if (listener != null) {
                         listener.onItemClick(Integer.parseInt(v.getTag().toString()));
                     }
                 }
@@ -89,7 +90,7 @@ public class SortLineLayout extends LinearLayout {
         this.listener = listener;
     }
 
-    public interface OnItemClickListener{
-       void onItemClick(int position);
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 }

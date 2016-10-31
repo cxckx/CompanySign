@@ -12,6 +12,6 @@ public class WebServiceDataNetOperator extends NetDataOperater<String> {
 
         WebServiceUtil serviceUtil = new WebServiceUtil(attribute);
         serviceUtil.setIsDotNet(false);
-        return serviceUtil.GetString(attribute.getUrl(),attribute.getNameSpace(),attribute.getMethodName(),attribute.getParams());
+        return serviceUtil.GetString(attribute.getUrl(), attribute.getNameSpace(), attribute.getMethodName(), attribute.getParams());
     }
 }

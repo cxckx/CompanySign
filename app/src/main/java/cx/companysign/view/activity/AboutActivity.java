@@ -24,7 +24,7 @@ public class AboutActivity extends BaseActivity {
         actionBar.setOnMenuItemClick(new ActionBar.OnMenuItemClick() {
             @Override
             public void onItemClick(int i) {
-                if(i == -1){
+                if (i == -1) {
                     onBackPressed();
                 }
             }

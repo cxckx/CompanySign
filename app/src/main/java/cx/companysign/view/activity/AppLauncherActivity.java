@@ -33,7 +33,8 @@ import cx.companysign.view.componts.AppDialog;
 public class AppLauncherActivity extends AppCompatActivity {
 
     NetDataOperater operater;
-     ProgressDialog dialogP;
+    ProgressDialog dialogP;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,7 +147,7 @@ public class AppLauncherActivity extends AppCompatActivity {
 
                                                         @Override
                                                         public void OnError(String s) {
-                                                             dialog1.dismiss();
+                                                            dialog1.dismiss();
                                                             AppDialog dialog2 = new AppDialog.Builder(AppLauncherActivity.this)
                                                                     .setTitle("提示")
                                                                     .setMessage("授权失败")

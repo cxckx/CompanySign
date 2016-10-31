@@ -26,24 +26,24 @@ public class ClickableTextView extends TextView implements View.OnClickListener 
 
     }
 
-    private void init(){
+    private void init() {
         this.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if(iOnClick != null){
+        if (iOnClick != null) {
             iOnClick.click(this.getText().toString());
         }
     }
 
-    private IOnClick  iOnClick;
+    private IOnClick iOnClick;
 
     public void setiOnClick(IOnClick iOnClick) {
         this.iOnClick = iOnClick;
     }
 
-    public interface IOnClick{
+    public interface IOnClick {
         void click(String text);
     }
 }

@@ -39,14 +39,15 @@ import cx.companysign.utils.WebServiceDataNetOperator;
 /**
  * Created by cxcxk on 2016/10/14.
  */
-public class SignHistoryDetailActivity extends BaseActivity{
+public class SignHistoryDetailActivity extends BaseActivity {
 
     ActionBar actionBar;
-    MapView signMap,signOutMap;
-    TextView signView,signOutView;
+    MapView signMap, signOutMap;
+    TextView signView, signOutView;
     BitmapDescriptor mCurrentMarker;
     NetDataOperater operater;
     Sign sign;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,17 +77,17 @@ public class SignHistoryDetailActivity extends BaseActivity{
 
         BaiduMap map = signMap.getMap();
 
-        initMap(map,sign);
+        initMap(map, sign);
 
         operater = new WebServiceDataNetOperator();
         NetDataOperater.Attribute attribute = ConnectHelper.createAttribute();
         attribute.setMethodName(ConnectHelper.METHOD.GETSIGNOUTBYDATE);
-        Map<String,String > mapHash = new HashMap<>();
-        mapHash.put("arg0",sign.getSignUser()+"");
+        Map<String, String> mapHash = new HashMap<>();
+        mapHash.put("arg0", sign.getSignUser() + "");
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         try {
             Date date = format.parse(sign.getSignDate());
-            mapHash.put("arg1",new SimpleDateFormat("yyyy-MM-dd").format(date));
+            mapHash.put("arg1", new SimpleDateFormat("yyyy-MM-dd").format(date));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -98,7 +99,7 @@ public class SignHistoryDetailActivity extends BaseActivity{
         attribute.setNetWork(new INetWork() {
             @Override
             public void OnCompleted(Object o) {
-                if( o.toString() == "") return ;
+                if (o.toString() == "") return;
                 if (o.toString().equals("null")) {
                     signOutMap.setVisibility(View.GONE);
                     signOutView.setText("未签退");
@@ -134,12 +135,12 @@ public class SignHistoryDetailActivity extends BaseActivity{
 
     }
 
-    private void initMap(BaiduMap map,Sign sign){
+    private void initMap(BaiduMap map, Sign sign) {
         double signLongitude = Double.parseDouble(sign.getLongitude());
         double signLatitude = Double.parseDouble(sign.getLatitude());
         map.setMyLocationEnabled(true);
         map.setIndoorEnable(true);
-        LatLng cenpt = new LatLng(signLongitude,signLatitude);
+        LatLng cenpt = new LatLng(signLongitude, signLatitude);
 
         MarkerOptions markerOptions = new MarkerOptions().icon(mCurrentMarker).position(cenpt);
         //获取添加的 marker 这样便于后续的操作

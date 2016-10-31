@@ -53,24 +53,22 @@ public class LoadDialog extends Dialog {
         }
 
 
-
-        public Builder setCancleable(boolean cancleable){
+        public Builder setCancleable(boolean cancleable) {
             this.cancleable = cancleable;
             return this;
         }
 
-        public Builder setCancleableOnTouchOutSide(boolean cancleable){
+        public Builder setCancleableOnTouchOutSide(boolean cancleable) {
             this.touchOutSide = cancleable;
             return this;
         }
-
 
 
         public LoadDialog create() {
 
             final LoadDialog dialog = new LoadDialog(context, R.style.Dialog);
             View view = LayoutInflater.from(context)
-                    .inflate(R.layout.load__progressbar_layout,null);
+                    .inflate(R.layout.load__progressbar_layout, null);
             dialog.setContentView(view);
             dialog.setCanceledOnTouchOutside(touchOutSide);
             dialog.setCancelable(cancleable);

@@ -4,7 +4,7 @@ package cx.companysign.utils;
  * Created by cxcxk on 2016/10/15.
  */
 public class LineType {
-    public static int LABLE =  0;
+    public static int LABLE = 0;
     public static int CONTENT = 1;
 
     private String content;

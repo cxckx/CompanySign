@@ -14,8 +14,7 @@ import Decoder.BASE64Decoder;
  * Created by cxcxk on 2016/10/26.
  */
 public class DecodeUtils {
-    public static String decrypt(String data, String key)
-    {
+    public static String decrypt(String data, String key) {
         if (data == null)
             return null;
         BASE64Decoder decoder = new BASE64Decoder();

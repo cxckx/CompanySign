@@ -12,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -22,15 +21,15 @@ import cx.companysign.R;
 /**
  * Created by zhouyou on 2016/7/25.
  * Class desc:
- *
+ * <p/>
  * 自定义日历View，可多选
  */
 public class CalendarView extends View {
 
     // 列的数量
-    private static final int NUM_COLUMNS    =   7;
+    private static final int NUM_COLUMNS = 7;
     // 行的数量
-    private static final int NUM_ROWS       =   6;
+    private static final int NUM_ROWS = 6;
 
     /**
      * 可选日期数据
@@ -99,13 +98,13 @@ public class CalendarView extends View {
         mPaint = new Paint();
         // 获取当前日期
         Calendar calendar = Calendar.getInstance();
-        mCurYear    =   calendar.get(Calendar.YEAR);
-        mCurMonth   =   calendar.get(Calendar.MONTH);
-        mCurDate    =   calendar.get(Calendar.DATE);
+        mCurYear = calendar.get(Calendar.YEAR);
+        mCurMonth = calendar.get(Calendar.MONTH);
+        mCurDate = calendar.get(Calendar.DATE);
         setSelYTD(mCurYear, mCurMonth, mCurDate);
 
         // 获取背景Bitmap
-        mBgOptBitmap    = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bg_course_optional);
+        mBgOptBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bg_course_optional);
         mBgNotOptBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bg_course_not_optional);
     }
 
@@ -128,41 +127,41 @@ public class CalendarView extends View {
         // 获取当月第一天位于周几
         mWeekNumber = DateUtils.getFirstDayWeek(mSelYear, mSelMonth);
 
-        for(int day = 0; day < mMonthDays; day++){
+        for (int day = 0; day < mMonthDays; day++) {
             dayStr = String.valueOf(day + 1);
-            int column  =  (day + mWeekNumber - 1) % 7;
-            int row     =  (day + mWeekNumber - 1) / 7;
+            int column = (day + mWeekNumber - 1) % 7;
+            int row = (day + mWeekNumber - 1) / 7;
             mDays[row][column] = day + 1;
             int startX = (int) (mColumnSize * column + (mColumnSize - mPaint.measureText(dayStr)) / 2);
             int startY = (int) (mRowSize * row + mRowSize / 2 - (mPaint.ascent() + mPaint.descent()) / 2);
 
             // 判断当前天数是否可选
-            if(mOptionalDates.contains(getSelData(mSelYear, mSelMonth, mDays[row][column]))){
+            if (mOptionalDates.contains(getSelData(mSelYear, mSelMonth, mDays[row][column]))) {
                 // 可选，继续判断是否是点击过的
-                if(!mSelectedDates.contains(getSelData(mSelYear, mSelMonth, mDays[row][column]))){
+                if (!mSelectedDates.contains(getSelData(mSelYear, mSelMonth, mDays[row][column]))) {
                     // 没有点击过，绘制默认背景
-                    canvas.drawBitmap(mBgNotOptBitmap, startX, startY - (mBgNotOptBitmap.getHeight() / 2)-4, mPaint);
+                    canvas.drawBitmap(mBgNotOptBitmap, startX, startY - (mBgNotOptBitmap.getHeight() / 2) - 4, mPaint);
                     mPaint.setColor(mDayNormalColor);
-                }else{
+                } else {
                     // 点击过，绘制点击过的背景
-                    canvas.drawBitmap(mBgOptBitmap, startX, startY - (mBgOptBitmap.getHeight() / 2)-4, mPaint);
+                    canvas.drawBitmap(mBgOptBitmap, startX, startY - (mBgOptBitmap.getHeight() / 2) - 4, mPaint);
                     mPaint.setColor(mDayPressedColor);
                 }
                 // 绘制天数
                 canvas.drawText(dayStr, startX, startY, mPaint);
-            }else{
+            } else {
                 mPaint.setColor(mDayNotOptColor);
                 canvas.drawText(dayStr, startX, startY, mPaint);
             }
         }
     }
 
-    private int downX = 0,downY = 0;
+    private int downX = 0, downY = 0;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int eventCode = event.getAction();
-        switch(eventCode){
+        switch (eventCode) {
             case MotionEvent.ACTION_DOWN:
                 downX = (int) event.getX();
                 downY = (int) event.getY();
@@ -170,11 +169,11 @@ public class CalendarView extends View {
             case MotionEvent.ACTION_MOVE:
                 break;
             case MotionEvent.ACTION_UP:
-                if(!mClickable) return true;
+                if (!mClickable) return true;
 
                 int upX = (int) event.getX();
                 int upY = (int) event.getY();
-                if(Math.abs(upX - downX) < 10 && Math.abs(upY - downY) < 10){
+                if (Math.abs(upX - downX) < 10 && Math.abs(upY - downY) < 10) {
                     performClick();
                     onClick((upX + downX) / 2, (upY + downY) / 2);
                 }
@@ -186,7 +185,7 @@ public class CalendarView extends View {
     /**
      * 点击事件
      */
-    private void onClick(int x, int y){
+    private void onClick(int x, int y) {
         int row = y / mRowSize;
         int column = x / mColumnSize;
         setSelYTD(mSelYear, mSelMonth, mDays[row][column]);
@@ -202,7 +201,7 @@ public class CalendarView extends View {
         }*/
 
         invalidate();
-        if(mListener != null){
+        if (mListener != null) {
             // 执行回调
             mListener.onClickDateListener(mSelYear, (mSelMonth + 1), mSelDate);
         }
@@ -220,9 +219,10 @@ public class CalendarView extends View {
 
     /**
      * 设置可选择日期
+     *
      * @param dates 日期数据
      */
-    public void setOptionalDate(List<String> dates){
+    public void setOptionalDate(List<String> dates) {
         this.mOptionalDates = dates;
         invalidate();
     }
@@ -230,7 +230,7 @@ public class CalendarView extends View {
     /**
      * 设置已选日期数据
      */
-    public void setSelectedDates(List<String> dates){
+    public void setSelectedDates(List<String> dates) {
         this.mSelectedDates = dates;
         invalidate();
     }
@@ -238,7 +238,7 @@ public class CalendarView extends View {
     /**
      * 获取已选日期数据
      */
-    public List<String> getSelectedDates(){
+    public List<String> getSelectedDates() {
         return mSelectedDates;
     }
 
@@ -252,69 +252,71 @@ public class CalendarView extends View {
 
     /**
      * 设置年月日
+     *
      * @param year  年
      * @param month 月
      * @param date  日
      */
-    private void setSelYTD(int year, int month, int date){
-        this.mSelYear   =   year;
-        this.mSelMonth  =   month;
-        this.mSelDate   =   date;
+    private void setSelYTD(int year, int month, int date) {
+        this.mSelYear = year;
+        this.mSelMonth = month;
+        this.mSelDate = date;
     }
 
     /**
      * 设置上一个月日历
      */
-    public void setLastMonth(){
-        int year    =   mSelYear;
-        int month   =   mSelMonth;
-        int day     =   mSelDate;
+    public void setLastMonth() {
+        int year = mSelYear;
+        int month = mSelMonth;
+        int day = mSelDate;
         // 如果是1月份，则变成12月份
-        if(month == 0){
-            year = mSelYear-1;
+        if (month == 0) {
+            year = mSelYear - 1;
             month = 11;
-        }else if(DateUtils.getMonthDays(year, month) == day){
+        } else if (DateUtils.getMonthDays(year, month) == day) {
             //　如果当前日期为该月最后一点，当向前推的时候，就需要改变选中的日期
-            month = month-1;
+            month = month - 1;
             day = DateUtils.getMonthDays(year, month);
-        }else{
-            month = month-1;
+        } else {
+            month = month - 1;
         }
-        setSelYTD(year,month,day);
+        setSelYTD(year, month, day);
         invalidate();
     }
 
     /**
      * 设置下一个日历
      */
-    public void setNextMonth(){
-        int year    =   mSelYear;
-        int month   =   mSelMonth;
-        int day     =   mSelDate;
+    public void setNextMonth() {
+        int year = mSelYear;
+        int month = mSelMonth;
+        int day = mSelDate;
         // 如果是12月份，则变成1月份
-        if(month == 11){
-            year = mSelYear+1;
+        if (month == 11) {
+            year = mSelYear + 1;
             month = 0;
-        }else if(DateUtils.getMonthDays(year, month) == day){
+        } else if (DateUtils.getMonthDays(year, month) == day) {
             //　如果当前日期为该月最后一点，当向前推的时候，就需要改变选中的日期
             month = month + 1;
             day = DateUtils.getMonthDays(year, month);
-        }else{
+        } else {
             month = month + 1;
         }
-        setSelYTD(year,month,day);
+        setSelYTD(year, month, day);
         invalidate();
     }
 
     /**
      * 获取当前展示的年和月份
+     *
      * @return 格式：2016-06
      */
-    public String getDate(){
+    public String getDate() {
         String data;
-        if((mSelMonth + 1) < 10){
+        if ((mSelMonth + 1) < 10) {
             data = mSelYear + "-0" + (mSelMonth + 1);
-        }else{
+        } else {
             data = mSelYear + "-" + (mSelMonth + 1);
         }
         return data;
@@ -322,23 +324,24 @@ public class CalendarView extends View {
 
     /**
      * 获取当前展示的日期
+     *
      * @return 格式：20160606
      */
-    private String getSelData(int year, int month, int date){
+    private String getSelData(int year, int month, int date) {
         String monty, day;
         month = (month + 1);
 
         // 判断月份是否有非0情况
-        if((month) < 10) {
+        if ((month) < 10) {
             monty = "0" + month;
-        }else{
+        } else {
             monty = String.valueOf(month);
         }
 
         // 判断天数是否有非0情况
-        if((date) < 10){
+        if ((date) < 10) {
             day = "0" + (date);
-        }else{
+        } else {
             day = String.valueOf(date);
         }
         return year + monty + day;
@@ -346,14 +349,14 @@ public class CalendarView extends View {
 
     private OnClickListener mListener;
 
-    public interface OnClickListener{
+    public interface OnClickListener {
         void onClickDateListener(int year, int month, int day);
     }
 
     /**
      * 设置点击回调
      */
-    public void setOnClickDate(OnClickListener listener){
+    public void setOnClickDate(OnClickListener listener) {
         this.mListener = listener;
     }
 
@@ -368,7 +371,7 @@ public class CalendarView extends View {
      * 释放Bitmap资源
      */
     private void recyclerBitmap(Bitmap bitmap) {
-        if(bitmap != null && !bitmap.isRecycled()){
+        if (bitmap != null && !bitmap.isRecycled()) {
             bitmap.recycle();
         }
     }

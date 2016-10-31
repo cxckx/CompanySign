@@ -38,13 +38,14 @@ import cx.companysign.view.componts.LoadDialog;
 public class SignHistoryActivity extends BaseActivity {
 
     ActionBar actionBar;
-    TextView textSelectMonthView,signedDaysView;
-    ImageButton nextBtn,lastBtn;
+    TextView textSelectMonthView, signedDaysView;
+    ImageButton nextBtn, lastBtn;
     CalendarView calendar;
     SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
     NetDataOperater operater;
     List<Sign> signs = new ArrayList<>();
     LoadDialog mLoadDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +76,7 @@ public class SignHistoryActivity extends BaseActivity {
             public void onClick(View v) {
                 calendar.setNextMonth();
                 textSelectMonthView.setText(calendar.getDate());
-                signedDaysView.setText("本月已签到天数: "+getSignDays()+"天");
+                signedDaysView.setText("本月已签到天数: " + getSignDays() + "天");
             }
         });
         lastBtn.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +84,7 @@ public class SignHistoryActivity extends BaseActivity {
             public void onClick(View v) {
                 calendar.setLastMonth();
                 textSelectMonthView.setText(calendar.getDate());
-                signedDaysView.setText("本月已签到天数: "+getSignDays()+"天");
+                signedDaysView.setText("本月已签到天数: " + getSignDays() + "天");
             }
         });
 
@@ -93,7 +94,7 @@ public class SignHistoryActivity extends BaseActivity {
         operater = new WebServiceDataNetOperator();
         final NetDataOperater.Attribute attr = ConnectHelper.createAttribute();
         attr.setMethodName(ConnectHelper.METHOD.GETSIGN);
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("arg0", getIntent().getIntExtra("userid", 0) + "");
         attr.setParams(map);
         operater.request(attr, "1");
@@ -128,7 +129,7 @@ public class SignHistoryActivity extends BaseActivity {
                 }
                 calendar.setOptionalDate(list);
                 calendar.setSelectedDates(list);
-                signedDaysView.setText("本月已签到天数: "+getSignDays()+"天");
+                signedDaysView.setText("本月已签到天数: " + getSignDays() + "天");
             }
 
             @Override
@@ -141,7 +142,7 @@ public class SignHistoryActivity extends BaseActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-                                operater.request(attr,"1");
+                                operater.request(attr, "1");
                             }
                         }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                             @Override
@@ -187,16 +188,16 @@ public class SignHistoryActivity extends BaseActivity {
 
     }
 
-    private  int getSignDays(){
+    private int getSignDays() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         int signNum = 0;
-        for (Sign sign:signs){
+        for (Sign sign : signs) {
             try {
                 Date dateNow = new SimpleDateFormat("yyyy-MM").parse(calendar.getDate());
                 Date date = format.parse(sign.getSignDate());
-                if(date.getYear() == dateNow.getYear()){
-                    if(date.getMonth() == dateNow.getMonth()){
-                        signNum ++;
+                if (date.getYear() == dateNow.getYear()) {
+                    if (date.getMonth() == dateNow.getMonth()) {
+                        signNum++;
                     }
                 }
             } catch (ParseException e) {
@@ -209,7 +210,7 @@ public class SignHistoryActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(!operater.isRunFinish()){
+        if (!operater.isRunFinish()) {
             operater.cancleAllRequest();
         }
     }

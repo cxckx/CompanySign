@@ -20,7 +20,7 @@ import cx.companysign.view.componts.ImageViewPlus;
  */
 public class ContractImageItemCell extends LinearLayout {
 
-    ImageViewPlus  cell;
+    ImageViewPlus cell;
     TextView name;
     Paint linePaint;
 
@@ -48,7 +48,7 @@ public class ContractImageItemCell extends LinearLayout {
         //cell.setBackgroundResource(R.drawable.circle_shape);
         LayoutParams params = LayoutHelper.createLinearLayout(LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT, Gravity.CENTER);
         params.leftMargin = AndroidUtils.dip2px(context, 16);
-        params.topMargin = AndroidUtils.dip2px(context,0);
+        params.topMargin = AndroidUtils.dip2px(context, 0);
         addView(cell, params);
 
         //cell.setText("陈晓");
@@ -72,7 +72,7 @@ public class ContractImageItemCell extends LinearLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(AndroidUtils.dip2px(getContext(),72),MeasureSpec.EXACTLY));
+        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(AndroidUtils.dip2px(getContext(), 72), MeasureSpec.EXACTLY));
     }
 
     @Override
@@ -83,11 +83,11 @@ public class ContractImageItemCell extends LinearLayout {
     }
 
     public void setText(String name) {
-       this.name.setText(name);
-       setWillNotDraw(false);
+        this.name.setText(name);
+        setWillNotDraw(false);
     }
 
-    public void setImage(Bitmap bitmap){
+    public void setImage(Bitmap bitmap) {
         cell.setImageBitmap(bitmap);
     }
 }

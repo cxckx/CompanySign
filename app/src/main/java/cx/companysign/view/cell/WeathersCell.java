@@ -31,11 +31,11 @@ public class WeathersCell extends LinearLayout {
     }
 
 
-    private void init(Context context){
+    private void init(Context context) {
 
         setOrientation(HORIZONTAL);
-        LayoutParams params = new LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT,1f);
-        for (int i = 0;i<cell.length;i++){
+        LayoutParams params = new LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+        for (int i = 0; i < cell.length; i++) {
             cell[i] = new WeatherCell(context);
             cell[i].setEnd(i == cell.length - 1);
             addView(cell[i], params);
@@ -43,26 +43,26 @@ public class WeathersCell extends LinearLayout {
 
     }
 
-    public void setMargin(int margin){
-        for (int i = 0;i<cell.length;i++){
+    public void setMargin(int margin) {
+        for (int i = 0; i < cell.length; i++) {
             cell[i].setMargin(margin);
         }
     }
 
-    public void setnumColums(int num){
-        for (int i = 0;i<cell.length;i++){
+    public void setnumColums(int num) {
+        for (int i = 0; i < cell.length; i++) {
             cell[i].setNumColoums(num);
             cell[i].setPosition(i);
         }
     }
 
-    public void setDays(WeatherEntity[]days){
-        for (int i = 0;i<days.length;i++){
+    public void setDays(WeatherEntity[] days) {
+        for (int i = 0; i < days.length; i++) {
             cell[i].setDayAndNight("日", "夜");
             cell[i].setTemp(days[i].getTemp());
             cell[i].setTime(days[i].getWeek());
             cell[i].setWind(days[i].getWind());
-            cell[i].setDayAndNightImage(days[i].getDayImage(),days[i].getNightImage());
+            cell[i].setDayAndNightImage(days[i].getDayImage(), days[i].getNightImage());
         }
     }
 }
