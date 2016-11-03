@@ -193,6 +193,7 @@ public class AppLauncherActivity extends AppCompatActivity {
 
             @Override
             public void OnError(String s) {
+
                 dialogP.dismiss();
                 AppDialog dialog = new AppDialog.Builder(AppLauncherActivity.this)
                         .setTitle("提示")

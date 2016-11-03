@@ -10,7 +10,7 @@ public class WebServiceDataNetOperator extends NetDataOperater<String> {
     @Override
     protected String onNetWork(Attribute attribute) {
 
-        WebServiceUtil serviceUtil = new WebServiceUtil(attribute);
+        WebServiceUtil serviceUtil = new WebServiceUtil(attribute, mHandler);
         serviceUtil.setIsDotNet(false);
         return serviceUtil.GetString(attribute.getUrl(), attribute.getNameSpace(), attribute.getMethodName(), attribute.getParams());
     }

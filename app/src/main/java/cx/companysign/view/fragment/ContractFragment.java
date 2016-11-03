@@ -307,9 +307,9 @@ public class ContractFragment extends Fragment implements Receiver{
                 branches.clear();
                 partCompanies.clear();
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                //getActivity().runOnUiThread(new Runnable() {
+                //@Override
+                //public void run() {
                         if (methodType != Receiver.ALL_CONTRACT) {
                             listView.setAdapter(new MyAdapter());
                         } else {
@@ -322,8 +322,8 @@ public class ContractFragment extends Fragment implements Receiver{
 
                         problemLayout.setVisibility(View.VISIBLE);
                         problemLayout.setText("获取数据失败...点击刷新");
-                    }
-                });
+                //}
+                //});
             }
 
             @Override

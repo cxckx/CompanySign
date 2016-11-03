@@ -47,7 +47,7 @@ public class ContractImageItemCell extends LinearLayout {
         //cell.initParam(R.drawable.icon,true);
         //cell.setBackgroundResource(R.drawable.circle_shape);
         LayoutParams params = LayoutHelper.createLinearLayout(LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT, Gravity.CENTER);
-        params.leftMargin = AndroidUtils.dip2px(context, 16);
+        params.leftMargin = AndroidUtils.dip2px(context, 32);
         params.topMargin = AndroidUtils.dip2px(context, 0);
         addView(cell, params);
 

@@ -50,7 +50,7 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
      * Creates the underlying database table.
      */
     public static void createTable(Database db, boolean ifNotExists) {
-        String constraint = ifNotExists ? "IF NOT EXISTS " : "";
+        String constraint = ifNotExists ? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USER_ENTITY\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"USER_ID\" INTEGER," + // 1: userId
@@ -64,9 +64,7 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
                 "\"USER_PART_COMPANY\" TEXT);"); // 9: userPartCompany
     }
 
-    /**
-     * Drops the underlying database table.
-     */
+    /** Drops the underlying database table. */
     public static void dropTable(Database db, boolean ifExists) {
         String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "\"USER_ENTITY\"";
         db.execSQL(sql);
@@ -75,52 +73,52 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, UserEntity entity) {
         stmt.clearBindings();
-
+ 
         Long id = entity.getId();
         if (id != null) {
             stmt.bindLong(1, id);
         }
-
+ 
         Integer userId = entity.getUserId();
         if (userId != null) {
             stmt.bindLong(2, userId);
         }
-
+ 
         String userName = entity.getUserName();
         if (userName != null) {
             stmt.bindString(3, userName);
         }
-
+ 
         String userPhone = entity.getUserPhone();
         if (userPhone != null) {
             stmt.bindString(4, userPhone);
         }
-
+ 
         Integer userSex = entity.getUserSex();
         if (userSex != null) {
             stmt.bindLong(5, userSex);
         }
-
+ 
         Long userBirthday = entity.getUserBirthday();
         if (userBirthday != null) {
             stmt.bindLong(6, userBirthday);
         }
-
+ 
         Integer userCompanyId = entity.getUserCompanyId();
         if (userCompanyId != null) {
             stmt.bindLong(7, userCompanyId);
         }
-
+ 
         String userIconHeader = entity.getUserIconHeader();
         if (userIconHeader != null) {
             stmt.bindString(8, userIconHeader);
         }
-
+ 
         String userBranch = entity.getUserBranch();
         if (userBranch != null) {
             stmt.bindString(9, userBranch);
         }
-
+ 
         String userPartCompany = entity.getUserPartCompany();
         if (userPartCompany != null) {
             stmt.bindString(10, userPartCompany);
@@ -130,52 +128,52 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
     @Override
     protected final void bindValues(SQLiteStatement stmt, UserEntity entity) {
         stmt.clearBindings();
-
+ 
         Long id = entity.getId();
         if (id != null) {
             stmt.bindLong(1, id);
         }
-
+ 
         Integer userId = entity.getUserId();
         if (userId != null) {
             stmt.bindLong(2, userId);
         }
-
+ 
         String userName = entity.getUserName();
         if (userName != null) {
             stmt.bindString(3, userName);
         }
-
+ 
         String userPhone = entity.getUserPhone();
         if (userPhone != null) {
             stmt.bindString(4, userPhone);
         }
-
+ 
         Integer userSex = entity.getUserSex();
         if (userSex != null) {
             stmt.bindLong(5, userSex);
         }
-
+ 
         Long userBirthday = entity.getUserBirthday();
         if (userBirthday != null) {
             stmt.bindLong(6, userBirthday);
         }
-
+ 
         Integer userCompanyId = entity.getUserCompanyId();
         if (userCompanyId != null) {
             stmt.bindLong(7, userCompanyId);
         }
-
+ 
         String userIconHeader = entity.getUserIconHeader();
         if (userIconHeader != null) {
             stmt.bindString(8, userIconHeader);
         }
-
+ 
         String userBranch = entity.getUserBranch();
         if (userBranch != null) {
             stmt.bindString(9, userBranch);
         }
-
+ 
         String userPartCompany = entity.getUserPartCompany();
         if (userPartCompany != null) {
             stmt.bindString(10, userPartCompany);
@@ -185,7 +183,7 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
     @Override
     public Long readKey(Cursor cursor, int offset) {
         return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
-    }
+    }    
 
     @Override
     public UserEntity readEntity(Cursor cursor, int offset) {
@@ -203,7 +201,7 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
         );
         return entity;
     }
-
+     
     @Override
     public void readEntity(Cursor cursor, UserEntity entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
@@ -216,14 +214,14 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
         entity.setUserIconHeader(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setUserBranch(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setUserPartCompany(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-    }
-
+     }
+    
     @Override
     protected final Long updateKeyAfterInsert(UserEntity entity, long rowId) {
         entity.setId(rowId);
         return rowId;
     }
-
+    
     @Override
     public Long getKey(UserEntity entity) {
         if (entity != null) {
@@ -242,5 +240,5 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
     protected final boolean isEntityUpdateable() {
         return true;
     }
-
+    
 }
