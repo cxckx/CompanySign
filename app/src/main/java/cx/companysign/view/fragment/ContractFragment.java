@@ -76,7 +76,7 @@ public class ContractFragment extends Fragment implements Receiver{
         listView.setDividerHeight(0);
         listView.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
         operater = new WebServiceDataNetOperator();
-        attribute = ConnectHelper.createAttribute();
+
 
         methodName = ConnectHelper.METHOD.GETUSERBYCOMPANY;
         RelativeLayout layout = new RelativeLayout(getContext());
@@ -203,6 +203,7 @@ public class ContractFragment extends Fragment implements Receiver{
     }
 
     public void request(){
+        attribute = ConnectHelper.createAttribute();
         attribute.setMethodName(methodName);
         Map<String,String> map = new HashMap<>();
         map.put("arg0", "1");
@@ -306,18 +307,23 @@ public class ContractFragment extends Fragment implements Receiver{
                 branches.clear();
                 partCompanies.clear();
 
-                if (methodType != Receiver.ALL_CONTRACT) {
-                    listView.setAdapter(new MyAdapter());
-                } else {
-                    sortListAdapter = new MySortAdapter(getContext(), UserToNameHeader());
-                    sortLineLayout.clearLabel();
-                    sortLineLayout.addLable(sortListAdapter.getWhichChars());
-                    sortLineLayout.setSelect(0);
-                    listView.setAdapter(sortListAdapter);
-                }
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (methodType != Receiver.ALL_CONTRACT) {
+                            listView.setAdapter(new MyAdapter());
+                        } else {
+                            sortListAdapter = new MySortAdapter(getContext(), UserToNameHeader());
+                            sortLineLayout.clearLabel();
+                            sortLineLayout.addLable(sortListAdapter.getWhichChars());
+                            sortLineLayout.setSelect(0);
+                            listView.setAdapter(sortListAdapter);
+                        }
 
-                problemLayout.setVisibility(View.VISIBLE);
-                problemLayout.setText("获取数据失败...点击刷新");
+                        problemLayout.setVisibility(View.VISIBLE);
+                        problemLayout.setText("获取数据失败...点击刷新");
+                    }
+                });
             }
 
             @Override
@@ -353,6 +359,7 @@ public class ContractFragment extends Fragment implements Receiver{
     @Override
     public void showWhat(int type) {
         methodType = type;
+
         if(sortLineLayout == null) return ;
 
         if(type == Receiver.ALL_CONTRACT){
